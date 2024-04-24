@@ -8,6 +8,7 @@ from pdgen.decorators.store import ALL_CLASSES
 
 def generate_uml_content():
     diagram_content = "@startuml\n"
+    diagram_content += "skinparam dpi 1200\n"
     for uml_class in ALL_CLASSES:
         uml_class.add_all_methods()
         uml_class.add_all_attributes()

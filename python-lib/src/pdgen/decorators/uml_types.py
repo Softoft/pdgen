@@ -42,7 +42,7 @@ class UMLRelationTypes(enum.Enum):
     def get_plantuml_relation_symbol(self) -> str:
         return {
             UMLRelationTypes.AGGREGATION: 'o--',
-            UMLRelationTypes.INHERITANCE: '<|--',
+            UMLRelationTypes.INHERITANCE: '--|>',
             UMLRelationTypes.DEPENDENCY: '-->'
         }[self]
 
@@ -55,6 +55,12 @@ class UMLRelation(UMLDiagramObject):
 
     def get_plantuml_relation(self) -> str:
         return f'{self.source.__name__} {self.relation_type.get_plantuml_relation_symbol()} {self.target.__name__}'
+
+    def __eq__(self, other):
+        return self.source == other.source and self.target == other.target and self.relation_type == other.relation_type
+
+    def __hash__(self):
+        return hash((self.source, self.target, self.relation_type))
 
 
 class UMLClass(UMLDiagramObject):
@@ -69,7 +75,7 @@ class UMLClass(UMLDiagramObject):
         self.private_method_identifier = private_method_identifier
         self.attributes: list[UMLAttribute] = []
         self.methods: list[UMLMethod] = []
-        self.relations: list[UMLRelation] = []
+        self.relations: set[UMLRelation] = set()
 
     def add_attribute(self, name: str, _type: type = None, visibility: UMLVisibility = UMLVisibility.PUBLIC):
         self.attributes.append(UMLAttribute(name, _type, visibility))
@@ -139,11 +145,11 @@ class UMLClass(UMLDiagramObject):
     def add_relationships(self):
         for base in self.class_reference.__bases__:
             if base.__name__ != 'object':
-                self.relations.append(
+                self.relations.add(
                     UMLRelation(source=self.class_reference, target=base, relation_type=UMLRelationTypes.INHERITANCE))
 
         type_hints = get_type_hints(self.class_reference)
         for attr, attr_type in type_hints.items():
             if inspect.isclass(attr_type):
-                self.relations.append(UMLRelation(source=self.class_reference, target=attr_type,
-                                                  relation_type=UMLRelationTypes.AGGREGATION))
+                self.relations.add(UMLRelation(source=self.class_reference, target=attr_type,
+                                               relation_type=UMLRelationTypes.AGGREGATION))
