@@ -1,0 +1,6 @@
+@startuml
+class Vehicle {
+}
+class Car {
+}
+@enduml
