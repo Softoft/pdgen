@@ -1,5 +1,8 @@
 export default {
     title: 'pdgen Documentation',
+    head: [
+        ['link', { rel: 'icon', href: 'https://softoft.sirv.com/pdgen/pdgen-python-logo-v4-black.png' }]
+    ],
     description: 'Automatically generate UML class diagrams from Python code with pdgen.',
     base: '/',
 

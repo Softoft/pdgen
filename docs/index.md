@@ -6,7 +6,8 @@ hero:
   text: Python to UML Class Diagram Generator
   tagline: Effortlessly visualize your Python code as UML class diagrams.
   image:
-    src: /logo.png
+    light: "https://softoft.sirv.com/pdgen/pdgen-python-logo-v4-black.png"
+    dark: "https://softoft.sirv.com/pdgen/pdgen-python-logo-v4-violet.png"
     alt: pdgen Logo
 actions:
   - text: Get Started
@@ -44,3 +45,6 @@ To begin using `pdgen`, visit our [Installation Guide](/guide/installation) to s
 
 We hope you find `pdgen` useful for your projects!
 
+## Created by
+
+Created by [Softoft](https://softoft.de/)
