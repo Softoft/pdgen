@@ -1,6 +1,20 @@
 @startuml
 class Vehicle {
+    +name : str
+    +name : str
 }
 class Car {
+    +name : str
+    +make : str
+    +model : str
+    +name : str
+    +make : str
+    +model : str
+    +drive() : None
+    +park() : None
+    +drive() : None
+    +park() : None
 }
+Car <|-- Vehicle
+Car <|-- Vehicle
 @enduml

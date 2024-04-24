@@ -9,6 +9,9 @@ from pdgen.decorators.store import ALL_CLASSES
 def generate_uml_content():
     diagram_content = "@startuml\n"
     for uml_class in ALL_CLASSES:
+        uml_class.add_all_methods()
+        uml_class.add_all_attributes()
+        uml_class.add_relationships()
         diagram_content += f'class {uml_class.display_name} {{\n'
         for attr in uml_class.attributes:
             diagram_content += f'    {attr.visibility.get_plantuml_visibility_symbol()}{attr.name} : {attr.type}\n'
