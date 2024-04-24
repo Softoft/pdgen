@@ -12,6 +12,6 @@ Anpassbare Diagramme: Bietet Optionen zur Anpassung der Darstellung, wie z.B. Fa
 Integration in Entwickler-Tools: Einfach zu integrieren in gängige Entwicklungsumgebungen und CI/CD-Pipelines.
 ### Installation
 Die Bibliothek kann einfach über pip installiert werden:
-````python
+````bash
 pip install py2uml
 ````
