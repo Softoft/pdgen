@@ -5,7 +5,9 @@ export default {
     ],
     description: 'Automatically generate UML class diagrams from Python code with pdgen.',
     base: '/',
-
+    sitemap: {
+        hostname: 'https://python-diagram-generator.com/',
+    },
     themeConfig: {
         repo: 'https://github.com/yourusername/pdgen',
         docsDir: 'docs',
