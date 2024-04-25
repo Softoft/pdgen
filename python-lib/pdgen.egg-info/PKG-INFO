@@ -1,0 +1,36 @@
+Metadata-Version: 2.1
+Name: pdgen
+Version: 0.1.0
+Summary: A Python package for generating UML diagrams from Python code using PlantUML.
+Home-page: https://github.com/Softoft/pdgen
+Author: Tobias Bück
+Author-email: tab@softoft.de
+Project-URL: Bug Reports, https://github.com/Softoft/pdgen/issues
+Project-URL: Source, https://github.com/Softoft/pdgen/
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Python: >=3.12, <3.14
+Description-Content-Type: text/markdown
+Requires-Dist: plantuml
+
+# pdgen
+## Python UML Class Diagram Generator
+
+## Python Code zu UML Klassendiagramm Konverter
+### Ãœberblick
+Der Python Code zu UML Klassendiagramm Konverter ist eine leistungsfÃ¤hige Bibliothek, die entwickelt wurde, um Python-Code automatisch in UML-Klassendiagramme zu Ã¼bersetzen. Diese Bibliothek erleichtert das VerstÃ¤ndnis und die Visualisierung von Objektorientierten Strukturen in groÃŸen Python-Projekten, indem sie eine grafische ReprÃ¤sentation der Klassen, ihrer Attribute und Methoden sowie der Beziehungen zwischen ihnen bietet.
+
+### Features
+Automatische Erkennung von Klassenstrukturen: Erkennt Klassen, Attribute, Methoden und Vererbungen im Python-Code.
+UnterstÃ¼tzung fÃ¼r Vererbungen: Visualisiert die Beziehungen zwischen Basisklassen und abgeleiteten Klassen.
+Anpassbare Diagramme: Bietet Optionen zur Anpassung der Darstellung, wie z.B. Farben und Schriftarten.
+Integration in Entwickler-Tools: Einfach zu integrieren in gÃ¤ngige Entwicklungsumgebungen und CI/CD-Pipelines.
+### Installation
+Die Bibliothek kann einfach Ã¼ber pip installiert werden:
+````bash
+pip install py2uml
+````
