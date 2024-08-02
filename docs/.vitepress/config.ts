@@ -17,7 +17,7 @@ export default {
                 link: '/guide/configuration'
             }, {text: 'Advanced Features', link: '/guide/advanced'}, {
                 text: 'Python - UML Diagram',
-                link: '/guide/uml-diagram'
+                link: '/guide/uml-diagramS'
             },]
         }, {text: 'GitHub', link: 'https://github.com/softoft/pdgen'}],
 
