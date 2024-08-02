@@ -11,8 +11,6 @@ export default {
     themeConfig: {
         repo: 'https://github.com/yourusername/pdgen',
         docsDir: 'docs',
-        editLinks: true,
-        editLinkText: 'Help us improve this page!',
         lastUpdated: 'Last Updated',
 
         nav: [
