@@ -28,7 +28,8 @@ export default {
                         { text: 'Installation', link: '/guide/installation' },
                         { text: 'Usage', link: '/guide/usage' },
                         { text: 'Configuration', link: '/guide/configuration' },
-                        { text: 'Advanced Features', link: '/guide/advanced' }
+                        { text: 'Advanced Features', link: '/guide/advanced' },
+                        { text: 'Python - UML Diagram', link: '/guide/uml-diagram' },
                     ]
                 }
             ],
