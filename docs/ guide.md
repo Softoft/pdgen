@@ -15,4 +15,4 @@
 
 ## UML Diagrams
 
-[UML Diagrams](./guide/uml-diagrams.md)
+[UML Diagrams](../uml-diagrams.md)
