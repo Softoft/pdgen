@@ -1,5 +1,11 @@
 # Introduction
 
+:::warning
+This is a work in progress. These are just ideas for future versions!
+:::
+
+
+
 Welcome to the documentation for `pdgen`, a tool designed to transform your Python code into UML class diagrams. `pdgen` aims to streamline the visualization process for developers, architects, and analysts, allowing them to better understand and communicate the structure of their software.
 
 ## What is pdgen?

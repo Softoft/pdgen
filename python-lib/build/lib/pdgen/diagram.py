@@ -1,5 +1,5 @@
-from pdgen.decorators import decorators
-from pdgen.decorators import generation
+from src.decorators import decorators
+from src.decorators import generation
 
 
 def uml_class(*args, **kwargs):

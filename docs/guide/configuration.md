@@ -1,5 +1,9 @@
 # Pdgen - UML Diagram Generator - Configuration
 
+:::warning
+This is a work in progress. These are just ideas for future versions!
+:::
+
 `pdgen` is designed to be flexible and customizable to fit various development environments and preferences. This page explains how to configure `pdgen` to optimize its functionality for your projects.
 
 ## Basic Configuration

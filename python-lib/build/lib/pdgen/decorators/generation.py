@@ -1,7 +1,7 @@
 import inspect
 
 import plantuml
-from pdgen.decorators.store import ALL_CLASSES
+from src.decorators.store import ALL_CLASSES
 
 
 def generate_uml_content():

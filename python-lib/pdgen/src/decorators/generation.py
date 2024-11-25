@@ -1,7 +1,7 @@
 import inspect
 
 import plantuml
-from pdgen.decorators.store import ALL_CLASSES
+from src.decorators.store import ALL_CLASSES
 
 
 def generate_uml_content():
@@ -10,18 +10,14 @@ def generate_uml_content():
     for uml_class in ALL_CLASSES:
         uml_class.add_all_methods()
         uml_class.add_all_attributes()
-        uml_class.add_relationships()
         diagram_content += f'class {uml_class.display_name} {{\n'
         for attr in uml_class.attributes:
-            diagram_content += f'    {attr.visibility.get_plantuml_visibility_symbol()}{attr.name} : {attr.type}\n'
+            diagram_content += f'    {attr.name} : {attr.attr_type}\n'
         for method in uml_class.methods:
             parameter_list = ", ".join(
-                [f"{ptype.__name__ if inspect.isclass(ptype) else ptype}" for ptype in method.parameters])
-            diagram_content += f'    {method.visibility.get_plantuml_visibility_symbol()}{method.name}({parameter_list}) : {method.return_type.__name__ if inspect.isclass(method.return_type) else method.return_type}\n'
+                [f"{param}: {p_type.__name__}" for param, p_type in method.parameters.items()])
+            diagram_content += f'    {method.name}({parameter_list}) : {method.return_type.__name__}\n'
         diagram_content += '}\n'
-
-        for relation in uml_class.relations:
-            diagram_content += relation.get_plantuml_relation() + '\n'
 
     diagram_content += "@enduml"
     return diagram_content

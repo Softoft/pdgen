@@ -2,6 +2,13 @@
 description: "How to install pdgen on your system using pip. Learn about prerequisites, installation instructions, verification, troubleshooting, and next steps."
 ---
 
+
+:::warning
+This is a work in progress. These are just ideas for future versions!
+:::
+
+
+
 # Pdgen -  UML Diagram Generation - Installation
 
 Installing `pdgen` is straightforward. This page will guide you through the process of getting `pdgen` set up on your system so you can start generating UML class diagrams from your Python code.

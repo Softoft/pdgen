@@ -26,7 +26,7 @@ features:
   - icon: 🔗
     title: Integration Ready
     details: Easily integrate pdgen into your existing Python projects and workflows.
-footer: Made with ❤️ by softoft
+footer: Made with fun by softoft
 ---
 
 # Welcome to pdgen Documentation
