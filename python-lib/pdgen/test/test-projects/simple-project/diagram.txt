@@ -7,5 +7,7 @@ class Car {
     name : <class 'str'>
     make : <class 'str'>
     model : <class 'str'>
+    drive() : NoneType
+    park() : NoneType
 }
 @enduml

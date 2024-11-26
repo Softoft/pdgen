@@ -1,0 +1,86 @@
+@startuml
+!theme mars
+
+package UMLTypes {
+    class Diagram{
+        classes: List[Class]
+        relationships: List[Relationship]
+    }
+    enum Visibility{
+        PUBLIC
+        PROTECTED
+    }
+
+    class Class{
+        name: str
+        attributes
+        methods
+    }
+    class Method{
+        name: str
+        params
+        visibility
+        returnType: str
+    }
+
+    class Attribute{
+        name: str
+        type: str
+        visibility
+    }
+
+    class Parameter{
+        name: str
+        type: str
+    }
+
+
+    class Relationship{
+        source: Class
+        target: Class
+        type: RelationType
+    }
+
+    enum RelationType{
+        AGGREGATION
+        INHERITANCE
+    }
+    Visibility -[hidden]down- RelationType
+    Class *-down-> Attribute
+    Class *-left-> Method
+    Method *-down-> Parameter
+    Method -[hidden]right- Attribute
+    Relationship *-left-> Class
+
+
+
+    Diagram *-left-> Class
+    Diagram *-up-> Relationship
+}
+package Decorators{
+    class MethodDecorator{
+    }
+    class ClassDecorator{
+    }
+}
+class ClassStore {
+    - classes: List[type]
+    + add(cls: type)
+    + get_all(): List[type]
+}
+
+ClassDecorator ..> ClassStore: uses
+
+class Constrcutor
+
+class DiagramGenerator {
+    generate_diagram() : str
+}
+
+class PlantUMLDiagramConverter{
+}
+
+DiagramGenerator -> Diagram: generates
+PlantUMLDiagramConverter .. Diagram: converts
+DiagramGenerator -> PlantUMLDiagramConverter: uses
+@enduml

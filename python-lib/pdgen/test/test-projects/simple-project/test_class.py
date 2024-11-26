@@ -1,6 +1,3 @@
-import inspect
-import json
-
 from src import uml_class, uml_method, generate_diagram
 
 @uml_class()
@@ -26,9 +23,3 @@ class Car(Vehicle):
 
 if __name__ == '__main__':
     generate_diagram()
-
-    print(Car.park.__hash__())
-
-
-
-

@@ -1,7 +1,5 @@
-import inspect
-
 import plantuml
-from src.decorators.store import ALL_CLASSES
+from src.store import ALL_CLASSES
 
 
 def generate_uml_content():
