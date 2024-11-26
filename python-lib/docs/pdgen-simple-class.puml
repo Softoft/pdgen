@@ -84,11 +84,16 @@ rectangle Diagrams{
 
     class PlantUMLConverter{
     }
+
+    class DiagramFactory{
+        create_uml_diagram()
+    }
+    DiagramGenerator ...> DiagramFactory: uses
 }
 
-DiagramGenerator ...> ClassFactory
-DiagramGenerator ...> ClassStore: uses
-DiagramGenerator ..> UMLTypes.Diagram
+DiagramFactory ...> ClassFactory
+DiagramFactory ...> ClassStore: uses
+DiagramFactory ..> UMLTypes.Diagram
 PlantUMLConverter .. UMLTypes.Diagram: converts
 DiagramGenerator ..> PlantUMLConverter: uses
 @enduml
