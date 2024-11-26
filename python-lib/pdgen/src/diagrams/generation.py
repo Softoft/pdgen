@@ -1,11 +1,11 @@
 import plantuml
-from src.store import ALL_CLASSES
 
 
 def generate_uml_content():
+    print("Not implemented")
     diagram_content = "@startuml\n"
     diagram_content += "skinparam dpi 600\n"
-    for uml_class in ALL_CLASSES:
+    for uml_class in []:
         uml_class.add_all_methods()
         uml_class.add_all_attributes()
         diagram_content += f'class {uml_class.display_name} {{\n'

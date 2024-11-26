@@ -1,12 +1,11 @@
-from src.store import ALL_CLASSES
-from src.uml_types import UMLClass
+from src.decorators.store import ClassRepository
 
 
 def uml_class(*args, **kwargs):
     def decorator(cls):
+        class_repo = ClassRepository()
         cls.__uml_methods = []
-        uml_class_instance = UMLClass(cls)
-        ALL_CLASSES.append(uml_class_instance)
+        class_repo.add(cls)
         return cls
     return decorator
 
@@ -16,6 +15,4 @@ def uml_method(method):
         return method(*args, **kwargs)
     method.__is_uml_method__ = True
     wrapper.__is_uml_method__ = True
-    print(method.__name__)
-    print(method.__is_uml_method__)
     return wrapper

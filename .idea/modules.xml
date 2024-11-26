@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/pdgen-docs.iml" filepath="$PROJECT_DIR$/.idea/pdgen-docs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pdgen.iml" filepath="$PROJECT_DIR$/.idea/pdgen.iml" />
     </modules>
   </component>
 </project>
