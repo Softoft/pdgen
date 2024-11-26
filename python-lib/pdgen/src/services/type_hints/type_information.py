@@ -1,19 +1,19 @@
 import dataclasses
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass(frozen=True)
 class TypeInformation:
     name: str
     type: type
 
 
-class TypeInformationCollection:
+class TypeInfoCollection:
     def __init__(self, type_information_list: list[TypeInformation]):
         self.type_information_list: list[TypeInformation] = type_information_list
 
 
 @dataclasses.dataclass
-class MethodSignature(TypeInformationCollection):
+class MethodSignature(TypeInfoCollection):
     return_type: type | None
 
     def __init__(self, type_information_list: list[TypeInformation]):

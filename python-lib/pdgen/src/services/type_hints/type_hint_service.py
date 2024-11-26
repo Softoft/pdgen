@@ -3,12 +3,12 @@ import typing
 from types import FunctionType
 
 from src.services.type_hints.type_information import MethodSignature, TypeInformation, \
-    TypeInformationCollection
+    TypeInfoCollection
 
 
 class TypeHintService:
     def get_type_information(self, obj: object, excluded=None,
-                             allow_dunderscore=False) -> TypeInformationCollection:
+                             allow_dunderscore=False) -> TypeInfoCollection:
         if excluded is None:
             excluded = []
         included = list(filter(lambda t: t.name not in excluded, self._get_type_information(obj)))
@@ -18,7 +18,7 @@ class TypeHintService:
 
         if inspect.isfunction(obj):
             return MethodSignature(included)
-        return TypeInformationCollection(included)
+        return TypeInfoCollection(included)
 
     def _is_dunderscore(self, member_name: str) -> bool:
         return member_name.startswith('__') and member_name.endswith('__')

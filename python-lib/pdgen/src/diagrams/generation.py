@@ -6,7 +6,7 @@ def generate_uml_content():
     diagram_content = "@startuml\n"
     diagram_content += "skinparam dpi 600\n"
     for uml_class in []:
-        uml_class.add_all_methods()
+        uml_class.create_all()
         uml_class.add_all_attributes()
         diagram_content += f'class {uml_class.display_name} {{\n'
         for attr in uml_class.attributes:
