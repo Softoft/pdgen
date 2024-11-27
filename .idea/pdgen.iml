@@ -16,4 +16,9 @@
     <orderEntry type="jdk" jdkName="Python 3.12 virtualenv at C:\Users\bueck\WebstormProjects\pdgen-docs\python-lib\.venv" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PyDocumentationSettings">
+    <option name="format" value="GOOGLE" />
+    <option name="myDocStringFormat" value="Google" />
+    <option name="renderExternalDocumentation" value="true" />
+  </component>
 </module>

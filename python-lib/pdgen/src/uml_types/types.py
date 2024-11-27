@@ -1,4 +1,5 @@
 import dataclasses
+from typing import Self
 
 
 @dataclasses.dataclass(frozen=True)
@@ -8,26 +9,67 @@ class UMLAttribute:
     """
     name: str
     attr_type: str
+    def __eq__(self, other):
+        if not isinstance(other, UMLAttribute):
+            return False
+        return self.name == other.name
+
+    def __hash__(self):
+        return hash(self.name)
 
 
 @dataclasses.dataclass(frozen=True)
 class UMLMethod:
     """
-    A UML Method, which has a name, return type, and parameters.
+    An UML Method
+
+    Attributes:
+        name (str): The name of the method.
+        return_type (str): The type of value returned by the method.
+        parameters (Dict[str, str]): A dictionary of the method's parameters, where:
+            - Keys are the names of the parameters (e.g., "num").
+            - Values are the types of the parameters as strings (e.g., "int").
+
     """
     name: str
     return_type: str
     parameters: dict[str, str]
 
+    def __eq__(self, other):
+        if not isinstance(other, UMLMethod):
+            return False
+        return self.name == other.name
+
+    def __hash__(self):
+        return hash(self.name)
+
 
 @dataclasses.dataclass(frozen=True)
 class UMLClass:
     """
-    A UML Class, which has a name, attributes, and methods.
+    A UML Class, which has a name, _attributes, and _methods.
     """
     name: str
-    attributes: list[UMLAttribute]
-    methods: list[UMLMethod]
+    _attributes: list[UMLAttribute]
+    _methods: list[UMLMethod]
+
+    @property
+    def attributes(self):
+        return list(dict.fromkeys(self._attributes))
+
+    @property
+    def methods(self):
+        return list(dict.fromkeys(self._methods))
+
+    def __eq__(self, other):
+        if not isinstance(other, UMLClass):
+            return False
+        return self.name == other.name
+
+    def __hash__(self):
+        return hash(self.name)
+
+
 
 
 @dataclasses.dataclass(frozen=True)
@@ -35,4 +77,4 @@ class UMLDiagram:
     """
     A UML Diagram, which has a list of UML Classes.
     """
-    classes: list[UMLClass]
+    classes: frozenset[UMLClass]

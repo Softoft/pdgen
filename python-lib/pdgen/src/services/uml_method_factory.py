@@ -45,3 +45,7 @@ class UMLMethodFactory:
                                          method_signature.return_type.__name__,
                                          method_params))
         return all_methods
+
+def create_uml_method_factory() -> UMLMethodFactory:
+    type_hint_service = TypeHintService()
+    return UMLMethodFactory(type_hint_service)

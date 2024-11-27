@@ -1,4 +1,6 @@
-from src import include_in_uml, generate_diagram
+from pathlib import Path
+
+from src import include_in_uml, DiagramGenerator
 
 @include_in_uml
 class Vehicle:
@@ -22,4 +24,5 @@ class Car(Vehicle):
 
 
 if __name__ == '__main__':
-    generate_diagram()
+    diagram_generator = DiagramGenerator()
+    diagram_generator.generate_diagram(Path("diagram_new.png"), Path("diagram_new.txt"))

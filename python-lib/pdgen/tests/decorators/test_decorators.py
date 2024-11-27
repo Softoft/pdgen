@@ -1,10 +1,10 @@
 import pytest
 from src.decorators.decorators import include_in_uml
-from src.services.uml_class_repository import UMLClassRepository
+from src.services.class_repository import ClassRepository
 
 @pytest.fixture(scope="function")
 def uml_class_repository():
-    repo = UMLClassRepository()
+    repo = ClassRepository()
     repo.clear()
     return repo
 
