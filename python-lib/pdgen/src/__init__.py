@@ -1,4 +1,4 @@
-from src.decorators.decorators import uml_class, uml_method
+from src.decorators.decorators import include_in_uml
 from src.diagrams.generation import generate_diagram
 
-__all__ = [uml_class, uml_method, generate_diagram]
+__all__ = [include_in_uml, generate_diagram]

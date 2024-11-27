@@ -10,6 +10,8 @@
       <excludeFolder url="file://$MODULE_DIR$/python-lib/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/python-lib/build" />
       <excludeFolder url="file://$MODULE_DIR$/python-lib/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/python-lib/pdgen.egg-info" />
+      <excludeFolder url="file://$MODULE_DIR$/python-lib/pdgen/pdgen.egg-info" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.12 virtualenv at C:\Users\bueck\WebstormProjects\pdgen-docs\python-lib\.venv" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

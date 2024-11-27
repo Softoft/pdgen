@@ -41,7 +41,7 @@ def save_diagram_to_text(content, filename='diagram.txt'):
 
 def generate_diagram(output_plantuml_filename: str = None, output_image_filename: str = None):
     """
-    Generates a UML diagram from the stored classes and saves it to a file.
+    Generates a UML diagram from the stored _classes and saves it to a file.
     """
     if not output_plantuml_filename:
         output_plantuml_filename = 'diagram.txt'
