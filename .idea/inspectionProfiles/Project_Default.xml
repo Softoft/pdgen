@@ -28,7 +28,7 @@
         <value>
           <list size="2">
             <item index="0" class="java.lang.String" itemvalue="3.12" />
-            <item index="1" class="java.lang.String" itemvalue="3.11" />
+            <item index="1" class="java.lang.String" itemvalue="3.13" />
           </list>
         </value>
       </option>
@@ -39,10 +39,13 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="3">
+          <list size="6">
             <item index="0" class="java.lang.String" itemvalue="drf-yasg" />
             <item index="1" class="java.lang.String" itemvalue="PyYAML" />
             <item index="2" class="java.lang.String" itemvalue="typing_extensions" />
+            <item index="3" class="java.lang.String" itemvalue="pytest" />
+            <item index="4" class="java.lang.String" itemvalue="plantuml" />
+            <item index="5" class="java.lang.String" itemvalue="inject" />
           </list>
         </value>
       </option>
