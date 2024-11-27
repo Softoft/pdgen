@@ -13,7 +13,7 @@ from src.uml_generation.plantuml_service import PlantUMLService
 
 
 def get_plant_uml_service():
-    class_repo = ClassRepository()
+    class_repo = ClassRepository.get_instance()
 
     type_hint_service = TypeHintService()
 

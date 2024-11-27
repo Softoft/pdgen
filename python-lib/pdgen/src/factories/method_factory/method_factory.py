@@ -42,7 +42,7 @@ class MethodFactory:
             method_signature: MethodSignature = typing.cast(MethodSignature, type_hints)
             method_params: dict[str, str] = self._method_params_as_dict(method_signature)
             all_methods.append(UMLMethod(method.name,
-                                         method_signature.return_type.__name__,
+                                         method_signature.get_return_type_as_str(),
                                          method_params))
         return all_methods
 

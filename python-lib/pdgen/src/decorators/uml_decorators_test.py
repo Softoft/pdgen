@@ -4,7 +4,7 @@ from src.repositories.class_repository import ClassRepository
 
 @pytest.fixture(scope="function")
 def uml_class_repository():
-    repo = ClassRepository()
+    repo = ClassRepository.get_instance()
     repo.clear()
     return repo
 

@@ -1,12 +1,12 @@
 from unittest.mock import MagicMock
 
+from src.factories.class_factory.class_factory import ClassFactory
 from src.factories.diagram_factory.diagram_factory import DiagramFactory
 from src.repositories.class_repository import ClassRepository
-from src.factories.class_factory import UMLClassFactory
 
 
-def create_mock_uml_class_factory(return_mapping: dict) -> UMLClassFactory:
-    mock_uml_class_factory: UMLClassFactory = MagicMock()
+def create_mock_uml_class_factory(return_mapping: dict) -> ClassFactory:
+    mock_uml_class_factory: ClassFactory = MagicMock()
 
     def side_effect(param):
         return return_mapping.get(param, None)

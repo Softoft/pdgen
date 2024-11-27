@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock
 
-from src.factories.class_factory import UMLClassFactory
+from src.factories.class_factory.class_factory import ClassFactory
 from src.uml_types.types import UMLAttribute, UMLClass, UMLMethod
 
 
@@ -30,11 +30,11 @@ def test_uml_method_factory_without_extra_service():
     class TestClass:
         pass
 
-    factory = UMLClassFactory(attribute_factory=mock_attribute_factory,
+    factory = ClassFactory(attribute_factory=mock_attribute_factory,
                               method_factory=mock_method_factory)
 
     result = factory.create_uml_class(TestClass)
 
-    expected_result = UMLClass("TestClass", uml_attributes, uml_methods)
+    expected_result = UMLClass(TestClass.__name__, uml_attributes, uml_methods)
 
     assert result == expected_result

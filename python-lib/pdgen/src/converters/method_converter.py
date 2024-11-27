@@ -12,7 +12,12 @@ class MethodConverter:
         Returns:
             str: PlantUML representation of the method_factory.
         """
+        if not method.name:
+            raise ValueError("UML Methods name cant be empty!")
+
         parameter_list = ", ".join(
             f"{param}: {ptype}" for param, ptype in method.parameters.items()
         )
-        return f"    {method.name}({parameter_list}) : {method.return_type}"
+        if method.return_type:
+            return f"    {method.name}({parameter_list}) : {method.return_type}"
+        return f"    {method.name}({parameter_list})"

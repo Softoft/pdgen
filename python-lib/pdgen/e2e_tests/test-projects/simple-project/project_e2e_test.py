@@ -1,4 +1,9 @@
+import logging
 from pathlib import Path
+
+logging.basicConfig(
+    level=logging.DEBUG
+)
 
 from src import include_in_uml, generate_diagram
 
