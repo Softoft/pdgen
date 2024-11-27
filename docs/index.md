@@ -4,7 +4,7 @@ title: pdgen Documentation
 hero:
   name: pdgen
   text: Python to UML Class Diagram Generator
-  tagline: Effortlessly visualize your Python code as UML class diagrams.
+  tagline: Effortlessly visualize your Python code as UML class uml_generation.
   image:
     light: "https://softoft.sirv.com/pdgen/pdgen-python-logo-v4-black.png"
     dark: "https://softoft.sirv.com/pdgen/pdgen-python-logo-v4-violet.png"
@@ -22,7 +22,7 @@ features:
     details: Get up and running with pdgen in minutes with our easy installation process.
   - icon: 🛠️
     title: Fully Customizable
-    details: Customize your UML diagrams with a wide array of configuration options.
+    details: Customize your UML uml_generation with a wide array of configuration options.
   - icon: 🔗
     title: Integration Ready
     details: Easily integrate pdgen into your existing Python projects and workflows.

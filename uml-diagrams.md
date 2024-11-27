@@ -137,7 +137,7 @@ To generate a UML diagram with pyreverse, follow these steps:
     ```sh
     pyreverse -o png -p Projektname mein_python_code/
     # - `-o png`: Specifies the output format (in this case, PNG).
-    # - `-p Projektname`: The project name displayed in the diagram.
+    # - `-p Projektname`: The project name displayed in the diagram_factory.
     # - `mein_python_code/`: The path to your Python project or module.
     ```
 
@@ -157,9 +157,9 @@ To convert Python code to a UML diagram with Py2Puml, follow these steps:
 
    **Example:**
     ```sh
-    py2puml mein_python_code/ > diagram.puml
+    py2puml mein_python_code/ > diagram_factory.puml
     # - `mein_python_code/`: The path to your Python project or module.
-    # - `> diagram.puml`: Directs the output to the `diagram.puml` file.
+    # - `> diagram_factory.puml`: Directs the output to the `diagram_factory.puml` file.
     ```
 
 3. **Install PlantUML (if not already installed):**
@@ -167,8 +167,8 @@ To convert Python code to a UML diagram with Py2Puml, follow these steps:
 
 4. **Generate UML diagram:**
     ```sh
-    plantuml diagram.puml
-    # This creates a UML diagram (e.g., in PNG format) in the same directory as `diagram.puml`.
+    plantuml diagram_factory.puml
+    # This creates a UML diagram_factory (e.g., in PNG format) in the same directory as `diagram_factory.puml`.
     ```
 
 That's it! This is how you can generate UML diagrams from your Python code using Py2Puml and PlantUML.

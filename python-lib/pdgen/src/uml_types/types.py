@@ -23,9 +23,9 @@ class UMLMethod:
     An UML Method
 
     Attributes:
-        name (str): The name of the method.
-        return_type (str): The type of value returned by the method.
-        parameters (Dict[str, str]): A dictionary of the method's parameters, where:
+        name (str): The name of the method_factory.
+        return_type (str): The type of value returned by the method_factory.
+        parameters (Dict[str, str]): A dictionary of the method_factory's parameters, where:
             - Keys are the names of the parameters (e.g., "num").
             - Values are the types of the parameters as strings (e.g., "int").
 

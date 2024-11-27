@@ -1,7 +1,7 @@
 export default {
     title: 'pdgen Documentation',
     head: [['link', {rel: 'icon', href: 'https://softoft.sirv.com/pdgen/pdgen-python-logo-v4-black.png'}]],
-    description: 'Automatically generate UML class diagrams from Python code with pdgen.',
+    description: 'Automatically generate UML class uml_generation from Python code with pdgen.',
     base: '/',
     sitemap: {
         hostname: '',
@@ -32,7 +32,7 @@ export default {
                     link: '/guide/configuration'
                 }, {text: 'Advanced Features', link: '/guide/advanced'}, {
                     text: 'Python - UML Diagram',
-                    link: '/guide/uml-diagrams'
+                    link: '/guide/uml-uml_generation'
                 },]
             }],
         }

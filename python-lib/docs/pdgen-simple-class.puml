@@ -1,5 +1,28 @@
 @startuml
-!theme mars
+!include https://raw.githubusercontent.com/patrik-csak/one-dark-plantuml-theme/v1.0.1/theme.puml
+
+skinparam FontColor white
+skinparam ClassFontColor white
+skinparam NoteFontColor white
+skinparam ArrowFontColor white
+skinparam DefaultFontColor white
+
+' Set the overall background color
+skinparam BackgroundColor #19191A
+' Set the rectangle (component) background color
+skinparam ComponentBackgroundColor #20202A
+skinparam RectangleBackgroundColor #20202A
+skinparam ClassBackgroundColor #2F2F3A
+skinparam ClassFontColor white
+skinparam CircledCharacterRadius 10
+skinparam Padding 4
+skinparam RoundCorner 15
+
+skinparam class {
+    BorderColor<<public>> #228822
+    FontStyle bold
+    CircledCharacterFontColor black
+}
 
 ' UMLTypes: Core data types for representing UML diagrams
 rectangle UMLTypes {
@@ -36,11 +59,12 @@ rectangle UMLTypes {
 
 ' Decorator: Decorators for marking classes/methods to include in diagrams
 rectangle Decorator {
-    class IncludeInUML {}
+    +annotation IncludeInUML <<public>> {
+    }
 }
 
 ' Services: Factories and repositories for managing UML-related data
-rectangle Services {
+rectangle Factories {
     class ClassRepository {
         - classes: List[type]
         + add(cls: type)
@@ -64,38 +88,25 @@ rectangle Services {
         create() : Attribute
     }
 
-    ClassFactory .down.> MethodFactory
-    ClassFactory .down.> AttributeFactory
-
-
-
-    MethodFactory ..> TypeHintService
-    AttributeFactory ..> TypeHintService
-
-    AttributeFactory -[hidden]down- MethodFactory
-}
-
-' Diagrams: Handles overall diagram generation and processing
-rectangle Diagrams {
-    class DiagramService {
-        generate_diagram() : str
-    }
-
     class DiagramFactory {
         create_uml_diagram() : Diagram
+    }
+}
+
+' UMLGeneration: Handles overall diagram_factory generation and processing
+rectangle UMLGeneration {
+    +class PlantUMLService <<public>> {
+        generate_diagram() : str
     }
 
     class PlantUMLRenderer {
         render(diagram: str)
     }
-
-    DiagramService ...> DiagramFactory: uses
-    Diagrams.DiagramService ..> PlantUMLRenderer
 }
 
 ' PlantUML: Converts UML data into PlantUML format
 rectangle PUMLConverter {
-    class DiagramService {
+    class DiagramConverter {
         convert(diagram: Diagram) -> str
     }
 
@@ -110,35 +121,45 @@ rectangle PUMLConverter {
     class MethodConverter {
         convert(method: Method) -> str
     }
-
-
-
-    DiagramService ..> ClassConverter
-    ClassConverter ..> AttributeConverter
-    ClassConverter ..> MethodConverter
-
-    AttributeConverter -[hidden]down- MethodConverter
 }
-Decorator -[hidden]right- Diagrams
-Decorator -[hidden]down- Services
-Services -[hidden]right- UMLTypes
-UMLTypes -[hidden]right- PUMLConverter
-' Services Relationships
-MethodFactory .right. UMLTypes.Method: creates
-AttributeFactory .right. UMLTypes.Attribute: creates
-ClassFactory .right. UMLTypes.Class: creates
 
+
+Decorator -[hidden]right- UMLGeneration
+Decorator -[hidden]down- Factories
+Factories -[hidden]right- UMLTypes
+UMLTypes -[hidden]right- PUMLConverter
+
+' Services Relationships
+
+
+' Decorator Relationships
 Decorator.IncludeInUML .down.> ClassRepository
 
-PUMLConverter.DiagramService ..> UMLTypes.Diagram
+' Converter Relationships
+PUMLConverter.DiagramConverter ..> UMLTypes.Diagram
 ClassConverter .. UMLTypes.Class: converts
 AttributeConverter .. UMLTypes.Attribute: converts
 MethodConverter .. UMLTypes.Method: converts
+DiagramConverter ..> ClassConverter
+ClassConverter ..> AttributeConverter
+ClassConverter ..> MethodConverter
+AttributeConverter -[hidden]down- MethodConverter
 
+' Factory Relationships
 DiagramFactory ...> ClassFactory
-DiagramFactory ...> ClassRepository
+DiagramFactory ..> ClassRepository
 DiagramFactory .. UMLTypes.Diagram
+ClassFactory .right. UMLTypes.Class: creates
+ClassFactory .down.> MethodFactory
+ClassFactory .down.> AttributeFactory
+MethodFactory .right. UMLTypes.Method: creates
+MethodFactory ..> TypeHintService
+AttributeFactory .right. UMLTypes.Attribute: creates
+AttributeFactory ..> TypeHintService
+AttributeFactory -[hidden]down- MethodFactory
 
-Diagrams.DiagramService ..> PUMLConverter.DiagramService
-
+' UMLGeneration Relationships
+UMLGeneration.PlantUMLService ..> DiagramConverter
+PlantUMLService ...> DiagramFactory: uses
+UMLGeneration.PlantUMLService .right.> PlantUMLRenderer
 @enduml
