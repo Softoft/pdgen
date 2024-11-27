@@ -6,7 +6,7 @@ rectangle UMLTypes {
         classes: List[Class]
     }
 
-    class IncludeInUML{
+    class Class{
         name: str
         attributes
         methods
@@ -28,25 +28,22 @@ rectangle UMLTypes {
     }
 
 
-    IncludeInUML *-down-> Attribute
-    IncludeInUML *-> Method
+    Class *-down-> Attribute
+    Class *-> Method
     Method *-down-> Parameter
     Method -[hidden]right- Attribute
-
-
-    Diagram *-> IncludeInUML
+    Diagram *-> Class
 }
 
 rectangle Decorator {
     class IncludeInUML{
     }
-
 }
 
 
 
 rectangle Services {
-    class ClassStore {
+    class ClassRepository {
         - classes: List[type]
         + add(cls: type)
         + get_all(): List[type]
@@ -76,31 +73,58 @@ rectangle Services {
 }
 
 rectangle Diagrams{
-    class DiagramGenerator {
+    class DiagramService {
         generate_diagram() : str
     }
 
     class DiagramFactory{
         create_uml_diagram()
     }
-    DiagramGenerator ...> DiagramFactory: uses
+    DiagramService ...> DiagramFactory: uses
 }
 
 rectangle PlantUML{
-    class PlantUMLConverter{
+    class PlantUMLDiagramService{
         convert(diagram: UMLTypes.Diagram) -> str
     }
+    class ClassConverter{
+        convert(cls: UMLTypes.IncludeInUML) -> str
+    }
+
+    class AttributeConverter{
+        convert(attr: UMLTypes.Attribute) -> str
+    }
+
+    class PlantUMLMethodConverter{
+        convert(method: UMLTypes.Method) -> str
+    }
+
     class PlantUMLRenderer{
         render(diagram: str)
     }
+    PlantUMLDiagramService ..> ClassConverter: uses
+    ClassConverter ..> AttributeConverter: uses
+    ClassConverter ..> PlantUMLMethodConverter: uses
 }
 
-Decorator.IncludeInUML .down.> ClassStore: uses
+' Decorator Relations
+Decorator.IncludeInUML .down.> ClassRepository: uses
 
+' PlantUML Relations:
+
+ClassConverter ..> UMLTypes.Class: converts
+AttributeConverter ..> UMLTypes.Attribute: converts
+PlantUMLMethodConverter ..> UMLTypes.Method: converts
+
+
+' Services Relations:
 DiagramFactory ...> ClassFactory
-DiagramFactory ...> ClassStore: uses
+DiagramFactory ...> ClassRepository: uses
 DiagramFactory ..> UMLTypes.Diagram
-PlantUMLConverter .. UMLTypes.Diagram: converts
-DiagramGenerator ..> PlantUMLConverter: uses
-DiagramGenerator ..> PlantUMLRenderer: uses
+
+' Diagrams Relations:
+PlantUMLDiagramService .. UMLTypes.Diagram: converts
+DiagramService ..> PlantUMLDiagramService: uses
+DiagramService ..> PlantUMLRenderer: uses
+
 @enduml
