@@ -1,130 +1,144 @@
 @startuml
 !theme mars
 
+' UMLTypes: Core data types for representing UML diagrams
 rectangle UMLTypes {
-    class Diagram{
+    class Diagram {
         classes: List[Class]
     }
 
-    class Class{
+    class Class {
         name: str
-        attributes
-        methods
+        attributes: List[Attribute]
+        methods: List[Method]
     }
-    class Method{
+
+    class Method {
         name: str
-        params
+        params: List[Parameter]
         returnType: str
     }
 
-    class Attribute{
+    class Attribute {
         name: str
         type: str
     }
 
-    class Parameter{
-        name: str
-        type: str
-    }
+    Diagram o-down-> Class
+    Class o-down-> Attribute
+    Class o-down-> Method
 
+    Attribute -[hidden]down- Method
 
-    Class *-down-> Attribute
-    Class *-> Method
-    Method *-down-> Parameter
-    Method -[hidden]right- Attribute
-    Diagram *-> Class
 }
 
+
+
+' Decorator: Decorators for marking classes/methods to include in diagrams
 rectangle Decorator {
-    class IncludeInUML{
-    }
+    class IncludeInUML {}
 }
 
-
-
+' Services: Factories and repositories for managing UML-related data
 rectangle Services {
     class ClassRepository {
         - classes: List[type]
         + add(cls: type)
         + get_all(): List[type]
     }
-    class TypeHintService{
-        get_type_hints(func: Callable) -> dict[str, type])
-        get_type_hints(cls: class) -> dict[str, type])
+
+    class TypeHintService {
+        get_type_hints(func)
+        get_type_hints(cls)
     }
 
-    class MethodFactory{
-        create_method()
+    class ClassFactory {
+        create() : Class
     }
 
-    class AttributeFactory{
-        create_attribute()
+    class MethodFactory {
+        create(): Method
     }
 
-    class ClassFactory{
-        create_class()
+    class AttributeFactory {
+        create() : Attribute
     }
 
-    ClassFactory ..> MethodFactory: uses
-    ClassFactory ..> AttributeFactory: uses
+    ClassFactory .down.> MethodFactory
+    ClassFactory .down.> AttributeFactory
 
-    MethodFactory ..> TypeHintService: uses
-    AttributeFactory ..> TypeHintService: uses
+
+
+    MethodFactory ..> TypeHintService
+    AttributeFactory ..> TypeHintService
+
+    AttributeFactory -[hidden]down- MethodFactory
 }
 
-rectangle Diagrams{
+' Diagrams: Handles overall diagram generation and processing
+rectangle Diagrams {
     class DiagramService {
         generate_diagram() : str
     }
 
-    class DiagramFactory{
-        create_uml_diagram()
-    }
-    DiagramService ...> DiagramFactory: uses
-}
-
-rectangle PlantUML{
-    class PlantUMLDiagramService{
-        convert(diagram: UMLTypes.Diagram) -> str
-    }
-    class ClassConverter{
-        convert(cls: UMLTypes.IncludeInUML) -> str
+    class DiagramFactory {
+        create_uml_diagram() : Diagram
     }
 
-    class AttributeConverter{
-        convert(attr: UMLTypes.Attribute) -> str
-    }
-
-    class PlantUMLMethodConverter{
-        convert(method: UMLTypes.Method) -> str
-    }
-
-    class PlantUMLRenderer{
+    class PlantUMLRenderer {
         render(diagram: str)
     }
-    PlantUMLDiagramService ..> ClassConverter: uses
-    ClassConverter ..> AttributeConverter: uses
-    ClassConverter ..> PlantUMLMethodConverter: uses
+
+    DiagramService ...> DiagramFactory: uses
+    Diagrams.DiagramService ..> PlantUMLRenderer
 }
 
-' Decorator Relations
-Decorator.IncludeInUML .down.> ClassRepository: uses
+' PlantUML: Converts UML data into PlantUML format
+rectangle PUMLConverter {
+    class DiagramService {
+        convert(diagram: Diagram) -> str
+    }
 
-' PlantUML Relations:
+    class ClassConverter {
+        convert(cls: Class) -> str
+    }
 
-ClassConverter ..> UMLTypes.Class: converts
-AttributeConverter ..> UMLTypes.Attribute: converts
-PlantUMLMethodConverter ..> UMLTypes.Method: converts
+    class AttributeConverter {
+        convert(attr: Attribute) -> str
+    }
+
+    class MethodConverter {
+        convert(method: Method) -> str
+    }
 
 
-' Services Relations:
+
+    DiagramService ..> ClassConverter
+    ClassConverter ..> AttributeConverter
+    ClassConverter ..> MethodConverter
+
+    AttributeConverter -[hidden]down- MethodConverter
+}
+Decorator -[hidden]right- Diagrams
+Decorator -[hidden]down- Services
+Services -[hidden]right- UMLTypes
+UMLTypes -[hidden]right- PUMLConverter
+' Services Relationships
+MethodFactory .right. UMLTypes.Method: creates
+AttributeFactory .right. UMLTypes.Attribute: creates
+ClassFactory .right. UMLTypes.Class: creates
+
+Decorator.IncludeInUML .down.> ClassRepository
+
+PUMLConverter.DiagramService ..> UMLTypes.Diagram
+ClassConverter .. UMLTypes.Class: converts
+AttributeConverter .. UMLTypes.Attribute: converts
+MethodConverter .. UMLTypes.Method: converts
+
 DiagramFactory ...> ClassFactory
-DiagramFactory ...> ClassRepository: uses
-DiagramFactory ..> UMLTypes.Diagram
+DiagramFactory ...> ClassRepository
+DiagramFactory .. UMLTypes.Diagram
 
-' Diagrams Relations:
-PlantUMLDiagramService .. UMLTypes.Diagram: converts
-DiagramService ..> PlantUMLDiagramService: uses
-DiagramService ..> PlantUMLRenderer: uses
+Diagrams.DiagramService ..> PUMLConverter.DiagramService
 
 @enduml
