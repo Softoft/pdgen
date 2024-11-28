@@ -4,37 +4,15 @@ export default {
     description: 'Automatically generate UML class uml_generation from Python code with pdgen.',
     base: '/',
     sitemap: {
-        hostname: '',
+        hostname: 'https://python-diagram-generation.softoft.de',
     },
     themeConfig: {
-        nav: [{text: 'Home', link: '/'}, {
-            text: 'Guide',
-            items: [{text: 'Introduction', link: '/guide/introduction'}, {
-                text: 'Installation',
-                link: '/guide/installation'
-            }, {text: 'Usage', link: '/guide/usage'}, {
-                text: 'Configuration',
-                link: '/guide/configuration'
-            }, {text: 'Advanced Features', link: '/guide/advanced'}, {
-                text: 'Python - UML Diagram',
-                link: '/guide/uml-diagramS'
-            },]
-        }, {text: 'GitHub', link: 'https://github.com/softoft/pdgen'}],
-
-        sidebar: {
-            '/guide/': [{
-                text: 'Guide',
-                children: [{text: 'Introduction', link: '/guide/introduction'}, {
-                    text: 'Installation',
-                    link: '/guide/installation'
-                }, {text: 'Usage', link: '/guide/usage'}, {
-                    text: 'Configuration',
-                    link: '/guide/configuration'
-                }, {text: 'Advanced Features', link: '/guide/advanced'}, {
-                    text: 'Python - UML Diagram',
-                    link: '/guide/uml-uml_generation'
-                },]
-            }],
-        }
+        nav: [
+            {text: 'Home', link: '/'},
+            {text: 'Installation', link: '/installation'},
+            {text: 'Usage', link: '/usage'},
+            {text: 'Planned Features', link: '/planned-features'},
+            {text: 'GitHub', link: 'https://github.com/softoft/pdgen'}
+        ]
     }
 }

@@ -29,22 +29,86 @@ features:
 footer: Made with fun by softoft
 ---
 
-# Welcome to pdgen Documentation
+## Welcome to pdgen Documentation
 
-Discover how `pdgen` can transform your Python code into comprehensive UML class diagrams with ease. Our tool is designed to help developers understand complex code bases through visual representation.
+Discover how `pdgen` can transform your Python code into comprehensive UML class diagrams with ease. Our tool is
+designed to help developers understand complex code bases through visual representation.
 
-## Why pdgen?
+### Why pdgen?
 
-- **Simplify Complex Code**: Visualize relationships and structures within your code that might be difficult to interpret from text alone.
-- **Improve Code Quality**: Identify design issues and improve your software architecture through better understanding of code dependencies.
-- **Enhance Collaboration**: Share clear and concise UML diagrams with your team members, enhancing both communication and collaboration.
+- **Simplify Complex Code**: Visualize relationships and structures within your code that might be difficult to
+  interpret from text alone.
+- **Improve Code Quality**: Identify design issues and improve your software architecture through better understanding
+  of code dependencies.
+- **Enhance Collaboration**: Share clear and concise UML diagrams with your team members, enhancing both communication
+  and collaboration.
 
-## Getting Started
+### Getting Started
 
-To begin using `pdgen`, visit our [Installation Guide](/guide/installation) to set up `pdgen` on your machine. For a more detailed understanding of how to use `pdgen` to generate UML diagrams, check out our [Usage Guide](/guide/usage).
+Install pdgen via pip:
 
-We hope you find `pdgen` useful for your projects!
+```bash
+pip install pdgen
+```
 
-## Created by
+Here’s how you can use PDGen to generate a UML diagram:
+
+```python
+from pdgen import include_in_uml, generate_diagram
+
+@include_in_uml
+class Bike:
+    def __init__(self, name: str):
+        self.name = name
+
+
+@include_in_uml
+class Car:
+    _name: str
+    _length: float
+
+    def get_name(self) -> str:
+        return self._name
+
+    @include_in_uml
+    def drive(self):
+        pass
+
+    @include_in_uml
+    def _turn_off_lights(self) -> None:
+        pass
+
+generate_diagram(Path("diagram_new.png"), Path("diagram_new.txt"))
+```
+
+### Output
+
+1. **`diagram_new.png`**: An UML diagram image PNG
+2. **`diagram_new.txt`**: The PlantUML source text for the diagram.
+
+### Example UML Diagram
+
+The generated UML diagram includes the annotated classes and methods:
+
+![PlantUML UML Image Generated with python pdgen library](https://raw.githubusercontent.com/Softoft/pdgen/refs/heads/main/e2e_tests/test_projects/resources_tmp/diagram_test.png)
+
+```puml
+@startuml
+skinparam dpi 600
+
+class Car {
+    - _name : str
+    - _length : float
+    - _turn_off_lights()
+    + drive()
+}
+class Bike {
+    + name : str
+}
+
+@enduml
+```
+
+### Created by
 
 Created by [Softoft](https://softoft.de/)
