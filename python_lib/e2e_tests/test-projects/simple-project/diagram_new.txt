@@ -1,0 +1,17 @@
+@startuml
+skinparam dpi 600
+
+class Vehicle {
+    name : str
+}
+
+
+class Car {
+    name : str
+    make : str
+    model : str
+    drive()
+    park()
+}
+
+@enduml

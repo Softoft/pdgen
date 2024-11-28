@@ -9,7 +9,7 @@ packages = ["src/pdgen"]
 name = "pdgen"
 version = "0.2.3"
 authors = [{name="Tobias Bück", email="tab@softoft.de"}]
-description = "A Python package for generating UML diagrams from Python code using PlantUML."
+description = "A package for generating UML Class diagrams from Python code"
 readme = "README.md"
 readme-content-type = "text/markdown"
 classifiers = [
@@ -50,7 +50,6 @@ dependencies = [
     "requests-toolbelt",
     "rfc3986",
     "rich",
-    "setuptools",
     "six",
     "twine",
     "urllib3",

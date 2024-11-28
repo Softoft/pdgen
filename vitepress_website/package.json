@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:serve": "vitepress serve docs"
+    "docs:dev": "vitepress dev vitepress-website",
+    "docs:build": "vitepress build vitepress-website",
+    "docs:serve": "vitepress serve vitepress-website"
   },
   "keywords": [],
   "author": "",

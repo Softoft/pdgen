@@ -1,3 +1,0 @@
-plantuml~=0.3.0
-pytest~=8.3.3
-inject~=5.2.1

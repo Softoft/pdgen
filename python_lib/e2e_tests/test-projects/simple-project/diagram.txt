@@ -1,0 +1,13 @@
+@startuml
+skinparam dpi 600
+class Vehicle {
+    name : <class 'str'>
+}
+class Car {
+    name : <class 'str'>
+    make : <class 'str'>
+    model : <class 'str'>
+    drive() : NoneType
+    park() : NoneType
+}
+@enduml
