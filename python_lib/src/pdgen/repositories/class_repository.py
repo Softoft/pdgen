@@ -15,8 +15,8 @@ class ClassRepository:
         if ClassRepository._instance is not None:
             raise ValueError("Class Repository is a singleton.")
         self._classes = []
-        self._logger = logging.getLogger(self.__class__.__name__)
-        self._logger.info("Class Repository Initialized")
+        self._logger = logging.getLogger("pdgen")
+        self._logger.debug("Class Repository Initialized")
         ClassRepository._instance = self
 
     def add(self, cls: type):
@@ -27,7 +27,7 @@ class ClassRepository:
             raise ValueError("Only classes can be added to the repository.")
         if cls.__module__ == "builtins":
             raise ValueError("Built-in types cannot be added to the repository.")
-        self._logger.info(f"Added to Class Repo: " + cls.__name__)
+        self._logger.debug(f"Added to Class Repo: " + cls.__name__)
         self._classes.append(cls)
 
     def get_all(self):

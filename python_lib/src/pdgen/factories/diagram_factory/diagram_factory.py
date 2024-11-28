@@ -9,7 +9,7 @@ class DiagramFactory:
     def __init__(self, uml_class_factory: ClassFactory, class_repository: ClassRepository):
         self._class_factory: ClassFactory = uml_class_factory
         self._class_repository: ClassRepository = class_repository
-        self._loger = logging.getLogger(self.__class__.__name__)
+        self._loger = logging.getLogger("pdgen")
 
     def create_diagram(self) -> UMLDiagram:
         classes = self._class_repository.get_all()

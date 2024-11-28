@@ -1,7 +1,8 @@
 from unittest.mock import MagicMock
+
 from pdgen.factories.attribute_factory.attribute_factory import AttributeFactory
 from pdgen.factories.type_hints.type_information import TypeInfoCollection, TypeInformation
-from pdgen.uml_types.types import UMLAttribute
+from pdgen.uml_types.types import UMLAttribute, UMLVisibility
 
 
 def get_side_effect_function(class_attrs: TypeInfoCollection, init_attrs: TypeInfoCollection):
@@ -34,10 +35,10 @@ def test_get_all_attributes_distinct():
     result = factory.create_all(object)
 
     expected_attributes = [
-        UMLAttribute("class_attr1", "int"),
-        UMLAttribute("class_attr2", "str"),
-        UMLAttribute("init_attr1", "float"),
-        UMLAttribute("init_attr2", "bool"),
+        UMLAttribute("class_attr1", "int", visibility=UMLVisibility.PUBLIC),
+        UMLAttribute("class_attr2", "str", visibility=UMLVisibility.PUBLIC),
+        UMLAttribute("init_attr1", "float", visibility=UMLVisibility.PUBLIC),
+        UMLAttribute("init_attr2", "bool", visibility=UMLVisibility.PUBLIC),
     ]
     assert result == expected_attributes
 
@@ -58,8 +59,8 @@ def test_class_attributes_empty():
     result = factory.create_all(object)
 
     expected_attributes = [
-        UMLAttribute("init_attr1", "float"),
-        UMLAttribute("init_attr2", "bool"),
+        UMLAttribute("init_attr1", "float", visibility=UMLVisibility.PUBLIC),
+        UMLAttribute("init_attr2", "bool", visibility=UMLVisibility.PUBLIC),
     ]
     assert result == expected_attributes
 
@@ -83,8 +84,8 @@ def test_same_names_in_class_and_init():
     result = factory.create_all(object)
 
     expected_attributes = [
-        UMLAttribute("shared_attr", "int"),
-        UMLAttribute("class_attr1", "str"),
-        UMLAttribute("init_attr1", "bool"),
+        UMLAttribute("shared_attr", "int", visibility=UMLVisibility.PUBLIC),
+        UMLAttribute("class_attr1", "str", visibility=UMLVisibility.PUBLIC),
+        UMLAttribute("init_attr1", "bool", visibility=UMLVisibility.PUBLIC),
     ]
     assert result == expected_attributes

@@ -18,17 +18,16 @@ class AttributeFactory:
 
         """
         class_attrs: TypeInfoCollection = self._type_hint_service.get_type_information(cls)
-        init_attrs: TypeInfoCollection = self._type_hint_service.get_type_information(cls.__init__, ['self'])
+        init_attrs: TypeInfoCollection = (self._type_hint_service.
+                                          get_type_information(cls.__init__, ['self']))
 
-        class_attr_names = {attr.name for attr in class_attrs.type_information_list}
+        class_attr_names: frozenset[str] = frozenset(
+            {attr.name for attr in class_attrs.type_information_list}
+        )
 
-        ordered_attrs = class_attrs.type_information_list + [
+        ordered_attrs: list[TypeInformation] = class_attrs.type_information_list + [
             attr for attr in init_attrs.type_information_list if attr.name not in class_attr_names
         ]
 
-        return [UMLAttribute(attr.name, attr.type.__name__) for attr in ordered_attrs]
-
-
-def create_uml_attribute_factory() -> AttributeFactory:
-    type_hint_service = TypeHintService()
-    return AttributeFactory(type_hint_service)
+        return [UMLAttribute(attr.name, attr.type.__name__, attr.visibility)
+                for attr in ordered_attrs]

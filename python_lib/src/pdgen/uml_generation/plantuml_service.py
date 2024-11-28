@@ -17,11 +17,11 @@ class PlantUMLService:
         self._diagram_factory: DiagramFactory = diagram_factory
         self._plantuml_converter: DiagramConverter = diagram_converter
         self._plantuml_renderer: PlantUMLRenderer = plantuml_renderer
-        self._logger = logging.getLogger(self.__class__.__name__)
+        self._logger = logging.getLogger("pdgen")
 
     def generate_diagram(self, output_image_file_path: Path, output_text_file_path: Path):
         plantuml_diagram: UMLDiagram = self._diagram_factory.create_diagram()
-        logging.info(f"Creating {plantuml_diagram}")
+        self._logger.info(f"Creating UML Diagram ...")
         plantuml_diagram_text = self._plantuml_converter.convert(plantuml_diagram)
         self._plantuml_renderer.render(plantuml_diagram_text, output_image_file_path)
         self._write_plantuml_text(plantuml_diagram_text, output_text_file_path)

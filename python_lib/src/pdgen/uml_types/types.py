@@ -1,5 +1,14 @@
 import dataclasses
+import enum
 
+
+class UMLVisibility(enum.Enum):
+    """
+    An enumeration of the possible visibilities of a UML element.
+    """
+    PUBLIC = "public"
+    PROTECTED = "protected"
+    PRIVATE = "private"
 
 @dataclasses.dataclass(frozen=True)
 class UMLAttribute:
@@ -8,6 +17,8 @@ class UMLAttribute:
     """
     name: str
     attr_type: str
+    visibility: UMLVisibility
+
     def __eq__(self, other):
         if not isinstance(other, UMLAttribute):
             return False
@@ -33,6 +44,7 @@ class UMLMethod:
     name: str
     return_type: str
     parameters: dict[str, str]
+    visibility: UMLVisibility
 
     def __eq__(self, other):
         if not isinstance(other, UMLMethod):

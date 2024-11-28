@@ -4,13 +4,13 @@ import logging
 from pdgen.repositories.class_repository import ClassRepository
 
 class_repo = ClassRepository.get_instance()
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("pdgen")
 
 def get_all_functions(cls):
     return inspect.getmembers(cls, lambda x: inspect.isfunction(x) or inspect.ismethod(x))
 
 def include_in_uml(target):
-    logger.info(f"Adding to UML: {target}")
+    logger.debug(f"Adding to UML: {target}")
     if inspect.isclass(target):
         class_repo.add(target)
         return target

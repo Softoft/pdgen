@@ -28,16 +28,23 @@ logging.basicConfig(level=logging.DEBUG)
 from pdgen import include_in_uml, generate_diagram
 
 @include_in_uml
-class Vehicle:
+class Bike:
+    @include_in_uml
     def __init__(self, name: str):
         self.name = name
 
 @include_in_uml
-class Car(Vehicle):
+class Car:
     def __init__(self, name: str, make: str, model: str):
+        self.name = name
         self.make = make
         self.model = model
-        super().__init__(name)
+
+    def set_name(self, name: str):
+        self.name = name
+
+    def get_name(self):
+        return self.name
 
     @include_in_uml
     def drive(self):
@@ -62,22 +69,23 @@ The above script generates:
 The generated UML diagram includes the annotated classes and methods:
 
 ```
+
 @startuml
 skinparam dpi 600
 
-class Vehicle {
-    name: str
-}
-
 class Car {
-    name: str
-    model: str
-    make: str
-    drive()
-    park()
+    + name : str
+    + make : str
+    + model : str
+    + drive()
+    + park()
 }
 
-Vehicle <|-- Car
+
+class Bike {
+    - __init__()
+}
+
 @enduml
 ```
 

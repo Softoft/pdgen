@@ -1,7 +1,6 @@
-import pytest
+import logging
 
-from pdgen.factories.type_hints.type_hint_service import TypeHintService
 
-@pytest.fixture
-def type_hint_service():
-    return TypeHintService()
+def pytest_configure(config):
+    # Set the global log level to DEBUG
+    logging.basicConfig(level=logging.DEBUG)

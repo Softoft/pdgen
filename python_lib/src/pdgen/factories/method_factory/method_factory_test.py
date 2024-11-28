@@ -1,9 +1,9 @@
 from unittest.mock import MagicMock, patch
 
+from pdgen.factories.method_factory.method_factory import MethodFactory
 from pdgen.factories.type_hints.type_hint_service import TypeHintService
 from pdgen.factories.type_hints.type_information import MethodSignature, TypeInformation
-from pdgen.factories.method_factory.method_factory import MethodFactory
-from pdgen.uml_types.types import UMLMethod
+from pdgen.uml_types.types import UMLMethod, UMLVisibility
 
 
 def test_uml_method_factory_without_extra_service():
@@ -35,6 +35,7 @@ def test_uml_method_factory_without_extra_service():
                 name="mock_method",
                 return_type="bool",
                 parameters={"param1": "str", "param2": "int"},
+                visibility=UMLVisibility.PUBLIC
             ),
         ]
 

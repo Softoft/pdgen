@@ -1,5 +1,11 @@
+import logging
+
 from pdgen.decorators.uml_decorators import include_in_uml
 
+logger = logging.getLogger("pdgen")
+
+if not logger.hasHandlers():
+    logger.addHandler(logging.NullHandler())
 
 def generate_diagram(output_image_file_path, output_text_file_path):
     from pdgen.setup.plant_uml_service_setup import get_plant_uml_service

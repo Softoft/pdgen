@@ -1,7 +1,9 @@
 from unittest.mock import MagicMock
+
 import pytest
+
 from pdgen.converters.class_converter import ClassConverter
-from pdgen.uml_types.types import UMLClass, UMLAttribute, UMLMethod
+from pdgen.uml_types.types import UMLAttribute, UMLClass, UMLMethod, UMLVisibility
 
 
 @pytest.fixture
@@ -19,11 +21,19 @@ def class_converter(attribute_converter, method_converter):
     return ClassConverter(attribute_converter, method_converter)
 
 
-def test_convert_class_with_attributes_and_methods(class_converter, attribute_converter, method_converter):
-    attribute1 = UMLAttribute(name="age", attr_type="int")
-    attribute2 = UMLAttribute(name="name", attr_type="string")
-    method1 = UMLMethod(name="getName", parameters={}, return_type="string")
-    method2 = UMLMethod(name="setAge", parameters={"age": "int"}, return_type="void")
+def test_convert_class_with_attributes_and_methods(class_converter,
+                                                   attribute_converter,
+                                                   method_converter):
+    attribute1 = UMLAttribute(name="age", attr_type="int", visibility=UMLVisibility.PUBLIC)
+    attribute2 = UMLAttribute(name="name", attr_type="string", visibility=UMLVisibility.PUBLIC)
+    method1 = UMLMethod(name="getName",
+                        parameters={},
+                        return_type="string",
+                        visibility=UMLVisibility.PUBLIC)
+    method2 = UMLMethod(name="setAge",
+                        parameters={"age": "int"},
+                        return_type="void",
+                        visibility=UMLVisibility.PUBLIC)
 
     uml_class = UMLClass(
         name="Person",
@@ -32,22 +42,22 @@ def test_convert_class_with_attributes_and_methods(class_converter, attribute_co
     )
 
     attribute_converter.convert.side_effect = [
-        "    age : int",
-        "    name : string",
+        "    + age : int",
+        "    + name : string",
     ]
     method_converter.convert.side_effect = [
-        "    getName() : string",
-        "    setAge(age: int) : void",
+        "    + getName() : string",
+        "    + setAge(age: int) : void",
     ]
 
     result = class_converter.convert(uml_class)
 
     assert result == [
         "class Person {",
-        "    age : int",
-        "    name : string",
-        "    getName() : string",
-        "    setAge(age: int) : void",
+        "    + age : int",
+        "    + name : string",
+        "    + getName() : string",
+        "    + setAge(age: int) : void",
         "}",
     ]
 
@@ -79,8 +89,8 @@ def test_convert_class_raises_error_for_empty_name(class_converter):
 
 
 def test_convert_class_with_only_attributes(class_converter, attribute_converter):
-    attribute1 = UMLAttribute(name="height", attr_type="float")
-    attribute2 = UMLAttribute(name="width", attr_type="float")
+    attribute1 = UMLAttribute(name="height", attr_type="float", visibility=UMLVisibility.PUBLIC)
+    attribute2 = UMLAttribute(name="width", attr_type="float", visibility=UMLVisibility.PUBLIC)
 
     uml_class = UMLClass(
         name="Rectangle",
@@ -89,23 +99,29 @@ def test_convert_class_with_only_attributes(class_converter, attribute_converter
     )
 
     attribute_converter.convert.side_effect = [
-        "    height : float",
-        "    width : float",
+        "    + height : float",
+        "    + width : float",
     ]
 
     result = class_converter.convert(uml_class)
 
     assert result == [
         "class Rectangle {",
-        "    height : float",
-        "    width : float",
+        "    + height : float",
+        "    + width : float",
         "}",
     ]
 
 
 def test_convert_class_with_only_methods(class_converter, method_converter):
-    method1 = UMLMethod(name="draw", parameters={}, return_type="void")
-    method2 = UMLMethod(name="resize", parameters={"factor": "float"}, return_type="void")
+    method1 = UMLMethod(name="draw",
+                        parameters={},
+                        return_type="void",
+                        visibility=UMLVisibility.PRIVATE)
+    method2 = UMLMethod(name="resize",
+                        parameters={"factor": "float"},
+                        return_type="void",
+                        visibility=UMLVisibility.PRIVATE)
 
     uml_class = UMLClass(
         name="Drawable",
@@ -114,15 +130,15 @@ def test_convert_class_with_only_methods(class_converter, method_converter):
     )
 
     method_converter.convert.side_effect = [
-        "    draw() : void",
-        "    resize(factor: float) : void",
+        "    - draw() : void",
+        "    - resize(factor: float) : void",
     ]
 
     result = class_converter.convert(uml_class)
 
     assert result == [
         "class Drawable {",
-        "    draw() : void",
-        "    resize(factor: float) : void",
+        "    - draw() : void",
+        "    - resize(factor: float) : void",
         "}",
     ]

@@ -1,0 +1,17 @@
+@startuml
+skinparam dpi 600
+
+class Car {
+    + name : str
+    + make : str
+    + model : str
+    + drive()
+    + park()
+}
+
+
+class Bike {
+    - __init__()
+}
+
+@enduml
