@@ -1,6 +1,8 @@
 from pathlib import Path
 
 from pdgen import generate_diagram
+# noinspection PyUnresolvedReferences
+from simple_project.project_e2e_test import Bike, Car
 
 
 def generate_diagram_real_path():

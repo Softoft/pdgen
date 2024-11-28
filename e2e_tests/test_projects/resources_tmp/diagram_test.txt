@@ -2,16 +2,16 @@
 skinparam dpi 600
 
 class Car {
-    + name : str
-    + make : str
-    + model : str
+    - _name : str
+    - _length : float
+    - _turn_off_lights()
     + drive()
-    + park()
+    + get_fuel_level()
 }
 
 
 class Bike {
-    - __init__()
+    + name : str
 }
 
 @enduml

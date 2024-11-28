@@ -1,3 +1,4 @@
+import dataclasses
 import time
 
 from pdgen import generate_diagram, include_in_uml
@@ -5,30 +6,32 @@ from pdgen import generate_diagram, include_in_uml
 
 @include_in_uml
 class Bike:
-    @include_in_uml
     def __init__(self, name: str):
         self.name = name
 
 
 @include_in_uml
+@dataclasses.dataclass
 class Car:
-    def __init__(self, name: str, make: str, model: str):
-        self.name = name
-        self.make = make
-        self.model = model
+    _name: str
+    _length: float
 
-    def set_name(self, name: str):
-        self.name = name
+    def set_name(self, name: str) -> None:
+        self._name = name
 
-    def get_name(self):
-        return self.name
+    def get_name(self) -> str:
+        return self._name
 
     @include_in_uml
     def drive(self):
         pass
 
     @include_in_uml
-    def park(self):
+    def get_fuel_level(self) -> float:
+        pass
+
+    @include_in_uml
+    def _turn_off_lights(self) -> None:
         pass
 
 

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pdgen"
-version = "0.3.1"
+version = "0.3.2"
 description = "A package for generating UML Class diagrams from Python code"
 authors = ["Tobias Bück <tab@softoft.de>"]
 readme = "README.md"

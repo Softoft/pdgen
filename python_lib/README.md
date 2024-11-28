@@ -26,34 +26,37 @@ from pathlib import Path
 logging.basicConfig(level=logging.DEBUG)
 
 from pdgen import include_in_uml, generate_diagram
+from dataclasses import dataclass
 
 @include_in_uml
 class Bike:
-    @include_in_uml
     def __init__(self, name: str):
         self.name = name
 
+
 @include_in_uml
+@dataclass
 class Car:
-    def __init__(self, name: str, make: str, model: str):
-        self.name = name
-        self.make = make
-        self.model = model
+    _name: str
+    _length: float
 
-    def set_name(self, name: str):
-        self.name = name
+    def set_name(self, name: str) -> None:
+        self._name = name
 
-    def get_name(self):
-        return self.name
+    def get_name(self) -> str:
+        return self._name
 
     @include_in_uml
     def drive(self):
         pass
 
     @include_in_uml
-    def park(self):
+    def get_fuel_level(self) -> float:
         pass
 
+    @include_in_uml
+    def _turn_off_lights(self) -> None:
+        pass
 
 if __name__ == '__main__':
     # Generate a UML diagram
@@ -68,22 +71,23 @@ The above script generates:
 ### Example UML Diagram
 The generated UML diagram includes the annotated classes and methods:
 
-```
+![PlantUML UML Image Generated with python pdgen library](https://raw.githubusercontent.com/Softoft/pdgen/refs/heads/main/e2e_tests/test_projects/resources_tmp/diagram_test.png)
 
+```
 @startuml
 skinparam dpi 600
 
 class Car {
-    + name : str
-    + make : str
-    + model : str
+    - _name : str
+    - _length : float
+    - _turn_off_lights()
     + drive()
-    + park()
+    + get_fuel_level()
 }
 
 
 class Bike {
-    - __init__()
+    + name : str
 }
 
 @enduml
