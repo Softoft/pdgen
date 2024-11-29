@@ -46,6 +46,7 @@ more-itertools = "*"
 nh3 = "*"
 packaging = "*"
 pkginfo = "*"
+pylint = "^3.3.1"
 
 [build-system]
 requires = ["poetry-core"]

@@ -1,0 +1,213 @@
+@startuml
+!include https://raw.githubusercontent.com/patrik-csak/one-dark-plantuml-theme/v1.0.1/theme.puml
+
+skinparam FontColor white
+skinparam ClassFontColor white
+skinparam NoteFontColor white
+skinparam ArrowFontColor white
+skinparam DefaultFontColor white
+
+' Set the overall background color
+skinparam BackgroundColor #19191A
+' Set the rectangle (component) background color
+skinparam ComponentBackgroundColor #20202A
+skinparam RectangleBackgroundColor #20202A
+skinparam ClassBackgroundColor #2F2F3A
+skinparam ClassFontColor white
+skinparam CircledCharacterRadius 10
+skinparam Padding 4
+skinparam RoundCorner 15
+
+skinparam class {
+    BorderColor<<public>> #228822
+    FontStyle bold
+    CircledCharacterFontColor black
+}
+
+
+class ClassRepository {
+    - classes: List[type]
+    + add(cls: type)
+    + get_all(): List[type]
+}
+
+' Decorator: Decorators for marking classes/methods to include in diagrams
+rectangle Decorator {
+    +annotation IncludeInUML <<public>> {
+    }
+}
+rectangle Generation{
+    class DiagramToJson{
+    }
+
+
+    ' UMLTypes: Core data types for representing UML diagrams
+    rectangle UMLTypes {
+        class Diagram {
+            classes: List[Class]
+        }
+
+        class Class {
+            name: str
+            attributes: List[Attribute]
+            methods: List[Method]
+        }
+
+        class Method {
+            name: str
+            params: List[Parameter]
+            returnType: str
+        }
+
+        class Attribute {
+            name: str
+            type: str
+        }
+
+        Diagram o-down-> Class
+        Class o-down-> Attribute
+        Class o-down-> Method
+
+        Attribute -[hidden]down- Method
+
+    }
+    ' Services: Factories and repositories for managing UML-related data
+    rectangle Factories {
+
+
+        class TypeHintService {
+            get_type_hints(func)
+            get_type_hints(cls)
+        }
+
+        class TypeInfo{
+
+        }
+
+        class ClassFactory {
+            create() : Class
+        }
+
+        class MethodFactory {
+            create(): Method
+        }
+
+        class MethodInfo{
+        }
+
+        class AttributeFactory {
+            create() : Attribute
+        }
+
+        class DiagramFactory {
+            create_uml_diagram() : Diagram
+        }
+    }
+}
+' UMLGeneration: Handles overall diagram_factory generation and processing
+rectangle UMLGeneration {
+    +class PlantUMLService <<public>> {
+        generate_diagram() : str
+    }
+
+    class PlantUMLRenderer {
+        render(diagram: str)
+    }
+}
+
+rectangle Conversion{
+    class JsonToDiagram{
+    }
+    ' PlantUML: Converts UML data into PlantUML format
+    rectangle PUMLConverter {
+        class DiagramConverter {
+            convert(diagram: Diagram) -> str
+        }
+
+        class ClassConverter {
+            convert(cls: Class) -> str
+        }
+
+        class AttributeConverter {
+            convert(attr: Attribute) -> str
+        }
+
+        class MethodConverter {
+            convert(method: Method) -> str
+        }
+        class VisibilityService{
+        }
+    }
+
+    rectangle UMLTypes {
+        class Diagram {
+            classes: List[Class]
+        }
+
+        class Class {
+            name: str
+            attributes: List[Attribute]
+            methods: List[Method]
+        }
+
+        class Method {
+            name: str
+            params: List[Parameter]
+            returnType: str
+        }
+
+        class Attribute {
+            name: str
+            type: str
+        }
+
+        Diagram o-down-> Class
+        Class o-down-> Attribute
+        Class o-down-> Method
+
+        Attribute -[hidden]down- Method
+
+    }
+}
+
+Decorator -[hidden]right- UMLGeneration
+Decorator -[hidden]down- Generation
+ClassRepository -[hidden]down- Generation
+
+' Decorator Relationships
+Decorator.IncludeInUML .down.> ClassRepository
+
+Conversion.PUMLConverter.DiagramConverter ..> Conversion.UMLTypes.Diagram
+
+' Converter Relationships
+Conversion.JsonToDiagram ..> Conversion.PUMLConverter.DiagramConverter
+Conversion.PUMLConverter.DiagramConverter ..> ClassConverter
+ClassConverter ..left. Conversion.UMLTypes.Class: converts
+ClassConverter ..> AttributeConverter
+ClassConverter ..> MethodConverter
+MethodConverter .left. Conversion.UMLTypes.Method: converts
+MethodConverter .right..> VisibilityService
+AttributeConverter .. Conversion.UMLTypes.Attribute: converts
+AttributeConverter -[hidden]down- MethodConverter
+AttributeConverter ...> VisibilityService
+
+' Factory
+Generation.DiagramToJson ..> Generation.Factories.DiagramFactory
+DiagramFactory ...> ClassFactory
+DiagramFactory .. Generation.UMLTypes.Diagram
+ClassFactory .right. Generation.UMLTypes.Class: creates
+ClassFactory .down.> MethodFactory
+ClassFactory .down.> AttributeFactory
+MethodFactory .right. Generation.UMLTypes.Method: creates
+MethodFactory ..> TypeHintService
+MethodFactory -left- MethodInfo
+AttributeFactory .right. Generation.UMLTypes.Attribute: creates
+AttributeFactory ..> TypeHintService
+AttributeFactory -[hidden]down- MethodFactory
+TypeHintService ..> TypeInfo
+' UMLGeneration Relationships
+UMLGeneration.PlantUMLService ..> Conversion.JsonToDiagram
+PlantUMLService ...> Generation.DiagramToJson
+PlantUMLService ..> ClassRepository
+UMLGeneration.PlantUMLService .right.> PlantUMLRenderer
+@enduml

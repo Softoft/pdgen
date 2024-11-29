@@ -63,17 +63,26 @@ rectangle Decorator {
     }
 }
 
-' Services: Factories and repositories for managing UML-related data
-rectangle Factories {
     class ClassRepository {
         - classes: List[type]
         + add(cls: type)
         + get_all(): List[type]
     }
+' Services: Factories and repositories for managing UML-related data
+rectangle Factories {
 
     class TypeHintService {
         get_type_hints(func)
         get_type_hints(cls)
+    }
+
+    interface IVisibility{
+        get_visibility()
+    }
+
+    class TypeInfo{
+        name: str
+
     }
 
     class ClassFactory {
@@ -82,6 +91,10 @@ rectangle Factories {
 
     class MethodFactory {
         create(): Method
+    }
+
+    class MethodInfo{
+        name: str
     }
 
     class AttributeFactory {
@@ -121,6 +134,8 @@ rectangle PUMLConverter {
     class MethodConverter {
         convert(method: Method) -> str
     }
+    class VisibilityService{
+    }
 }
 
 
@@ -135,31 +150,39 @@ UMLTypes -[hidden]right- PUMLConverter
 ' Decorator Relationships
 Decorator.IncludeInUML .down.> ClassRepository
 
-' Converter Relationships
 PUMLConverter.DiagramConverter ..> UMLTypes.Diagram
-ClassConverter .. UMLTypes.Class: converts
-AttributeConverter .. UMLTypes.Attribute: converts
-MethodConverter .. UMLTypes.Method: converts
+
+' Converter Relationships
 DiagramConverter ..> ClassConverter
+ClassConverter .. UMLTypes.Class
 ClassConverter ..> AttributeConverter
 ClassConverter ..> MethodConverter
+MethodConverter.. UMLTypes.Method
+MethodConverter .right..> VisibilityService
+AttributeConverter .. UMLTypes.Attribute
 AttributeConverter -[hidden]down- MethodConverter
+AttributeConverter ...> VisibilityService
 
 ' Factory Relationships
 DiagramFactory ...> ClassFactory
-DiagramFactory ..> ClassRepository
 DiagramFactory .. UMLTypes.Diagram
 ClassFactory .right. UMLTypes.Class: creates
 ClassFactory .down.> MethodFactory
 ClassFactory .down.> AttributeFactory
 MethodFactory .right. UMLTypes.Method: creates
 MethodFactory ..> TypeHintService
+MethodFactory -left- MethodInfo
 AttributeFactory .right. UMLTypes.Attribute: creates
 AttributeFactory ..> TypeHintService
 AttributeFactory -[hidden]down- MethodFactory
+TypeHintService .left.> TypeInfo
+
+MethodInfo -left--|> IVisibility
+TypeInfo -left--|> IVisibility
 
 ' UMLGeneration Relationships
 UMLGeneration.PlantUMLService ..> DiagramConverter
-PlantUMLService ...> DiagramFactory: uses
+PlantUMLService ...> DiagramFactory
+PlantUMLService ..> ClassRepository
 UMLGeneration.PlantUMLService .right.> PlantUMLRenderer
 @enduml

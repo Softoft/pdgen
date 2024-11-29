@@ -1,15 +1,20 @@
+from unittest.mock import MagicMock
+
 import pytest
 
 from pdgen.converters.method_converter import MethodConverter
+from pdgen.converters.services.uml_visibility_service import UMLVisibilityService
 from pdgen.uml_types.types import UMLMethod, UMLVisibility
 
 
-@pytest.fixture
-def method_converter():
-    return MethodConverter()
+def get_method_converter(visibility_convert_return_value: str) -> MethodConverter:
+    visibility_service: UMLVisibilityService = MagicMock()
+    visibility_service.convert.return_value = visibility_convert_return_value
+    return MethodConverter(visibility_service)
 
 
-def test_convert_simple_method_with_return_type(method_converter):
+def test_convert_simple_method_with_return_type():
+    method_converter = get_method_converter("+")
     method = UMLMethod(
         name="calculate",
         parameters={"x": "int", "y": "int"},
@@ -20,7 +25,9 @@ def test_convert_simple_method_with_return_type(method_converter):
     assert result == "    + calculate(x: int, y: int) : int"
 
 
-def test_convert_method_without_return_type(method_converter):
+def test_convert_method_without_return_type():
+    method_converter = get_method_converter("-")
+
     method = UMLMethod(
         name="printData",
         parameters={"data": "string"},
@@ -31,7 +38,8 @@ def test_convert_method_without_return_type(method_converter):
     assert result == "    - printData(data: string)"
 
 
-def test_convert_method_no_parameters_with_return_type(method_converter):
+def test_convert_method_no_parameters_with_return_type():
+    method_converter = get_method_converter("+")
     method = UMLMethod(
         name="getName",
         parameters={},
@@ -42,7 +50,8 @@ def test_convert_method_no_parameters_with_return_type(method_converter):
     assert result == "    + getName() : string"
 
 
-def test_convert_method_no_parameters_without_return_type(method_converter):
+def test_convert_method_no_parameters_without_return_type():
+    method_converter = get_method_converter("-")
     method = UMLMethod(
         name="initialize",
         parameters={},
@@ -53,7 +62,8 @@ def test_convert_method_no_parameters_without_return_type(method_converter):
     assert result == "    - initialize()"
 
 
-def test_convert_method_empty_name_raises_error(method_converter):
+def test_convert_method_empty_name_raises_error():
+    method_converter = get_method_converter("-")
     method = UMLMethod(
         name="",
         parameters={"x": "int"},
@@ -64,7 +74,8 @@ def test_convert_method_empty_name_raises_error(method_converter):
         method_converter.convert(method)
 
 
-def test_convert_method_empty_parameters(method_converter):
+def test_convert_method_empty_parameters():
+    method_converter = get_method_converter("-")
     method = UMLMethod(
         name="doSomething",
         parameters={},
@@ -75,7 +86,8 @@ def test_convert_method_empty_parameters(method_converter):
     assert result == "    - doSomething() : None"
 
 
-def test_convert_method_empty_return_type(method_converter):
+def test_convert_method_empty_return_type():
+    method_converter = get_method_converter("-")
     method = UMLMethod(
         name="doSomething",
         parameters={},

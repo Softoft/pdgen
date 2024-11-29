@@ -3,21 +3,18 @@ import logging
 
 from pdgen.repositories.class_repository import ClassRepository
 
-class_repo = ClassRepository.get_instance()
 logger = logging.getLogger("pdgen")
 
-def get_all_functions(cls):
-    return inspect.getmembers(cls, lambda x: inspect.isfunction(x) or inspect.ismethod(x))
-
 def include_in_uml(target):
-    logger.debug(f"Adding to UML: {target}")
+    logger.debug("Adding to UML: %s", target)
     if inspect.isclass(target):
-        class_repo.add(target)
+        ClassRepository.get_instance().add(target)
         return target
-    elif inspect.isfunction(target) or inspect.ismethod(target):
+    if inspect.isfunction(target) or inspect.ismethod(target):
         def wrapper(*args, **kwargs):
             return target(*args, **kwargs)
+
         wrapper.__is_uml_method__ = True
         return wrapper
-    else:
-        raise TypeError("The include_in_uml decorator can only be applied to _classes or _methods.")
+    raise TypeError(f"The {include_in_uml.__name__} decorator "
+                    "can only be applied to classes or methods.")

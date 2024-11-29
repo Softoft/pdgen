@@ -1,7 +1,10 @@
+# pylint: disable=redefined-outer-name
 from unittest.mock import MagicMock
+
 import pytest
+
 from pdgen.converters.diagram_converter import DiagramConverter
-from pdgen.uml_types.types import UMLDiagram, UMLClass
+from pdgen.uml_types.types import UMLClass, UMLDiagram
 
 
 @pytest.fixture

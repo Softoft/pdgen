@@ -1,20 +1,10 @@
-import dataclasses
 import inspect
 import typing
 
+from pdgen.factories.entities.method_entity import MethodInformation
+from pdgen.factories.entities.method_signature import MethodSignature
 from pdgen.factories.type_hints.type_hint_service import TypeHintService
-from pdgen.factories.type_hints.type_information import MethodSignature
-from pdgen.uml_types.types import UMLMethod, UMLVisibility
-
-
-@dataclasses.dataclass(frozen=True)
-class MethodInformation:
-    name: str
-    function_reference: object
-
-    @property
-    def visibility(self) -> UMLVisibility:
-        return UMLVisibility.PRIVATE if self.name.startswith("_") else UMLVisibility.PUBLIC
+from pdgen.uml_types.types import UMLMethod
 
 
 class MethodFactory:
@@ -29,6 +19,7 @@ class MethodFactory:
         all_methods = self._find_all_methods(class_reference)
         return [method for method in all_methods if
                 hasattr(method.function_reference, '__is_uml_method__')]
+
     def _method_params_as_dict(self, method_signature: MethodSignature):
         return {param.name: param.type.__name__ for param in method_signature.type_information_list}
 
@@ -37,7 +28,7 @@ class MethodFactory:
 
         all_methods: list[UMLMethod] = []
         for method in uml_methods:
-            type_hints = self._type_hint_service.get_type_information(method.function_reference)
+            type_hints = self._type_hint_service.get_type_infos(method.function_reference)
             method_signature: MethodSignature = typing.cast(MethodSignature, type_hints)
             method_params: dict[str, str] = self._method_params_as_dict(method_signature)
             all_methods.append(UMLMethod(method.name,

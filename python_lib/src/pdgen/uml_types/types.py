@@ -10,6 +10,7 @@ class UMLVisibility(enum.Enum):
     PROTECTED = "protected"
     PRIVATE = "private"
 
+
 @dataclasses.dataclass(frozen=True)
 class UMLAttribute:
     """
@@ -79,8 +80,6 @@ class UMLClass:
 
     def __hash__(self):
         return hash(self.name)
-
-
 
 
 @dataclasses.dataclass(frozen=True)

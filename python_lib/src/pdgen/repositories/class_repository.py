@@ -21,13 +21,13 @@ class ClassRepository:
 
     def add(self, cls: type):
         """
-        Add a class to the repository. Only classes can be added, and built-in types are not allowed.
+        Add a class; Only classes can be added, built-in types aren't allowed
         """
         if not inspect.isclass(cls):
             raise ValueError("Only classes can be added to the repository.")
         if cls.__module__ == "builtins":
             raise ValueError("Built-in types cannot be added to the repository.")
-        self._logger.debug(f"Added to Class Repo: " + cls.__name__)
+        self._logger.debug("Added to Class Repo: %s", cls.__name__)
         self._classes.append(cls)
 
     def get_all(self):

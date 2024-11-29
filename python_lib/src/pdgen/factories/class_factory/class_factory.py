@@ -12,7 +12,8 @@ class ClassFactory:
         self._logger = logging.getLogger("pdgen")
 
     def create_uml_class(self, class_reference: type) -> UMLClass:
-        self._logger.info(f"UMLCLassFactory: Creating Class Reference: {class_reference}")
+        self._logger.info("UMLCLassFactory: Creating Class Reference: %s",
+                          class_reference)
         class_name = class_reference.__name__
         attributes = self._attribute_factory.create_all(class_reference)
         methods = self._method_factory.create_all(class_reference)

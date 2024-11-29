@@ -1,17 +1,11 @@
-from pdgen.uml_types.types import UMLMethod, UMLVisibility
+from pdgen.converters.services.uml_visibility_service import UMLVisibilityService
+from pdgen.uml_types.types import UMLMethod
 
 
 class MethodConverter:
-    def _get_visibility_identifier(self, visibility: UMLVisibility) -> str:
-        match visibility:
-            case UMLVisibility.PUBLIC:
-                return "+"
-            case UMLVisibility.PROTECTED:
-                return "#"
-            case UMLVisibility.PRIVATE:
-                return "-"
-            case _:
-                raise ValueError(f"Invalid visibility: {visibility}")
+    def __init__(self, uml_visibility_service: UMLVisibilityService):
+        self._uml_visibility_service = uml_visibility_service
+
     def convert(self, method: UMLMethod) -> str:
         """
         Converts a UMLMethod to PlantUML format.
@@ -29,7 +23,7 @@ class MethodConverter:
             f"{param}: {ptype}" for param, ptype in method.parameters.items()
         )
 
-        visibility_identifier = self._get_visibility_identifier(method.visibility)
+        visibility: str = self._uml_visibility_service.convert(method.visibility)
         if method.return_type:
-            return f"    {visibility_identifier} {method.name}({parameter_list}) : {method.return_type}"
-        return f"    {visibility_identifier} {method.name}({parameter_list})"
+            return f"    {visibility} {method.name}({parameter_list}) : {method.return_type}"
+        return f"    {visibility} {method.name}({parameter_list})"

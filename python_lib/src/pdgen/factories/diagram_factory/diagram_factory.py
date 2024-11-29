@@ -13,7 +13,7 @@ class DiagramFactory:
 
     def create_diagram(self) -> UMLDiagram:
         classes = self._class_repository.get_all()
-        self._loger.info(f"Creating Diagram for classes "
-                         f"{", ".join(list(map(lambda x: x.__name__, classes)))}")
+        comma_separated_classes = ", ".join([cls.__name__ for cls in classes])
+        self._loger.info("Creating Diagram for classes %s", comma_separated_classes)
         uml_classes = [self._class_factory.create_uml_class(cls) for cls in classes]
         return UMLDiagram(frozenset(uml_classes))

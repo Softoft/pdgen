@@ -1,8 +1,9 @@
 from unittest.mock import MagicMock, patch
 
+from pdgen.factories.entities.method_signature import MethodSignature
+from pdgen.factories.entities.type_information import TypeInfo
 from pdgen.factories.method_factory.method_factory import MethodFactory
 from pdgen.factories.type_hints.type_hint_service import TypeHintService
-from pdgen.factories.type_hints.type_information import MethodSignature, TypeInformation
 from pdgen.uml_types.types import UMLMethod, UMLVisibility
 
 
@@ -10,13 +11,14 @@ def test_uml_method_factory_without_extra_service():
     mock_type_hint_service: TypeHintService = MagicMock()
 
     mock_method_signature = MethodSignature([
-        TypeInformation(name="param1", type=str),
-        TypeInformation(name="param2", type=int),
-        TypeInformation(name="return", type=bool),
+        TypeInfo(name="param1", type=str),
+        TypeInfo(name="param2", type=int),
+        TypeInfo(name="return", type=bool),
     ])
-    mock_type_hint_service.get_type_information.return_value = mock_method_signature
+    mock_type_hint_service.get_type_infos.return_value = mock_method_signature
 
     with patch("inspect.getmembers") as mock_getmembers:
+        # pylint: disable=unused-argument
         def mock_method(x: str, y: int) -> bool:
             pass
 

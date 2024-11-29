@@ -3,6 +3,7 @@ from unittest.mock import MagicMock
 from pdgen.factories.class_factory.class_factory import ClassFactory
 from pdgen.factories.diagram_factory.diagram_factory import DiagramFactory
 from pdgen.repositories.class_repository import ClassRepository
+from pdgen.uml_types.types import UMLClass, UMLDiagram
 
 
 def create_mock_uml_class_factory(return_mapping: dict) -> ClassFactory:
@@ -20,16 +21,17 @@ def create_mock_class_repository(classes) -> ClassRepository:
     mock_class_repository.get_all.return_value = classes
     return mock_class_repository
 
-from pdgen.uml_types.types import UMLClass, UMLDiagram
-
 
 def test_uml_class_factory_mock():
     class TestClass1:
         pass
+
     class TestClass2:
         pass
+
     class TestClass3:
         pass
+
     mock_uml_class1 = UMLClass("TestClass1", [], [])
     mock_uml_class2 = UMLClass("TestClass2", [], [])
 
@@ -48,9 +50,11 @@ def test_uml_class_factory_mock():
     assert result2 == mock_uml_class2
     assert result3 is None
 
+
 def test_class_repository_mock():
     class TestClass1:
         pass
+
     class TestClass2:
         pass
 
@@ -62,9 +66,11 @@ def test_class_repository_mock():
 
     assert result == classes
 
+
 def test_create_diagram():
     class TestClass1:
         pass
+
     class TestClass2:
         pass
 

@@ -1,0 +1,60 @@
+[MAIN]
+analyse-fallback-blocks = no
+clear-cache-post-run = no
+fail-under = 9.5
+jobs = 0
+persistent = no
+py-version = 3.13
+suggestion-mode = no
+
+[BASIC]
+argument-naming-style = snake_case
+attr-naming-style = snake_case
+class-attribute-naming-style = snake_case
+class-const-naming-style = UPPER_CASE
+class-naming-style = PascalCase
+const-naming-style = UPPER_CASE
+function-naming-style = snake_case
+method-naming-style = snake_case
+module-naming-style = snake_case
+variable-naming-style = snake_case
+
+[DESIGN]
+max-args = 4
+max-attributes = 5
+max-bool-expr = 3
+max-branches = 8
+max-locals = 10
+max-public-methods = 10
+max-returns = 4
+max-statements = 40
+min-public-methods = 1
+
+[EXCEPTIONS]
+overgeneral-exceptions = builtins.Exception
+
+[FORMAT]
+indent-string = '    '
+max-line-length = 100
+max-module-lines = 800
+
+[MESSAGES CONTROL]
+disable = missing-module-docstring,
+          missing-function-docstring,
+          missing-class-docstring,
+          too-few-public-methods,
+          suppressed-message,
+          locally-disabled
+enable = all
+
+[REPORTS]
+reports = no
+score = yes
+
+[REFACTORING]
+max-nested-blocks = 4
+
+[TYPECHECK]
+missing-member-hint = yes
+missing-member-hint-distance = 2
+mixin-class-rgx = .*Mixin

@@ -21,7 +21,6 @@ class ClassConverter:
         if not uml_class.name:
             raise ValueError("UMLClass Name cant be empty!")
 
-
         lines = [f"class {uml_class.name} {{"]
 
         for attribute in uml_class.attributes:

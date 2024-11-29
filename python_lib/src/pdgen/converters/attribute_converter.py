@@ -1,27 +1,21 @@
-from pdgen.uml_types.types import UMLAttribute, UMLVisibility
+from pdgen.converters.services.uml_visibility_service import UMLVisibilityService
+from pdgen.uml_types.types import UMLAttribute
 
 
 class AttributeConverter:
-    def _get_visibility_identifier(self, visibility: UMLVisibility) -> str:
-        match visibility:
-            case UMLVisibility.PUBLIC:
-                return "+"
-            case UMLVisibility.PROTECTED:
-                return "#"
-            case UMLVisibility.PRIVATE:
-                return "-"
-            case _:
-                raise ValueError(f"Invalid visibility: {visibility}")
+    def __init__(self, uml_visibility_service: UMLVisibilityService):
+        self._uml_visibility_service = uml_visibility_service
+
 
     def convert(self, attribute: UMLAttribute) -> str:
         """
-        Converts a UMLAttribute to PlantUML format.
+        Converts an UMLAttribute to PlantUML format.
 
         Args:
-            attribute (UMLAttribute): The attribute_factory to convert.
+            attribute (UMLAttribute): The attribute to convert.
 
         Returns:
-            str: PlantUML representation of the attribute_factory.
+            str: PlantUML representation of the attribute.
 
         Raises:
             ValueError: If the attribute's name or type is empty.
@@ -31,5 +25,5 @@ class AttributeConverter:
         if not attribute.attr_type:
             raise ValueError("UML Attribute type cannot be empty!")
 
-        visibility_identifier = self._get_visibility_identifier(attribute.visibility)
+        visibility_identifier = self._uml_visibility_service.convert(attribute.visibility)
         return f"    {visibility_identifier} {attribute.name} : {attribute.attr_type}"

@@ -4,6 +4,10 @@ import plantuml
 
 
 class PlantUMLRenderer:
+    """
+    Renderer for generating UML diagrams using PlantUML.
+    """
+
     def render(self, plantuml_diagram_text, output_image_file_path: Path):
         """
         Generates and saves the UML diagram_factory to a file.

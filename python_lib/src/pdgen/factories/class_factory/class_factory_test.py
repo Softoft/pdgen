@@ -32,7 +32,7 @@ def test_uml_method_factory_without_extra_service():
         pass
 
     factory = ClassFactory(attribute_factory=mock_attribute_factory,
-                              method_factory=mock_method_factory)
+                           method_factory=mock_method_factory)
 
     result = factory.create_uml_class(TestClass)
 
