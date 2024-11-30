@@ -28,13 +28,39 @@ class PlantUMLService:
         self._plantuml_renderer: PlantUMLRenderer = plantuml_renderer
         self._logger = logging.getLogger("pdgen")
 
-    def generate_diagram(self, output_image_file_path: Path, output_text_file_path: Path):
+    def generate_diagram(self,
+                         output_image_file_path: str | Path | None = None,
+                         output_text_file_path: str | Path | None = None
+                         ):
+        """
+        Generates a UML diagram and saves it to a file.
+        Args:
+            output_image_file_path:  Path to the output image file.
+            output_text_file_path:  Path to the output text file.
+
+        Returns:
+            None
+        """
+        if output_image_file_path is None and output_text_file_path is None:
+            raise ValueError("At least one of output_image_file_path or output_text_file_path must be provided.")
+
+        self._logger.info("Creating UML Diagram ...")
+        plantuml_diagram_text = self.generate_plantuml_diagram_text()
+        if output_image_file_path is not None:
+            self._plantuml_renderer.render(plantuml_diagram_text, output_image_file_path)
+        if output_text_file_path is not None:
+            self._write_plantuml_text(plantuml_diagram_text, output_text_file_path)
+
+    def generate_plantuml_diagram_text(self) -> str:
+        """
+        Generates a UML diagram and returns the PlantUML text.
+        Returns:
+            str: PlantUML text representing the UML diagram.
+        """
         plantuml_diagram: UMLDiagram = self._diagram_factory.create_diagram()
         self._logger.info("Creating UML Diagram ...")
-        plantuml_diagram_text = self._plantuml_converter.convert(plantuml_diagram)
-        self._plantuml_renderer.render(plantuml_diagram_text, output_image_file_path)
-        self._write_plantuml_text(plantuml_diagram_text, output_text_file_path)
+        return self._plantuml_converter.convert(plantuml_diagram)
 
-    def _write_plantuml_text(self, plantuml_text: str, output_text_file_path: Path):
+    def _write_plantuml_text(self, plantuml_text: str, output_text_file_path: str | Path):
         with open(output_text_file_path, 'w', encoding="utf-8") as file:
             file.write(plantuml_text)

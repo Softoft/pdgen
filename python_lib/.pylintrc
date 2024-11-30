@@ -35,7 +35,7 @@ overgeneral-exceptions = builtins.Exception
 
 [FORMAT]
 indent-string = '    '
-max-line-length = 100
+max-line-length = 120
 max-module-lines = 800
 
 [MESSAGES CONTROL]

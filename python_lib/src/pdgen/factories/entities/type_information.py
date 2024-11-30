@@ -11,3 +11,6 @@ class TypeInfo:
     @property
     def visibility(self) -> UMLVisibility:
         return UMLVisibility.PRIVATE if self.name.startswith("_") else UMLVisibility.PUBLIC
+
+    def is_magic(self) -> bool:
+        return self.name.startswith("__") and self.name.endswith("__")

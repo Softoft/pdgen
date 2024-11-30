@@ -55,8 +55,8 @@ def test_generate_diagram(tmp_path):
     assert "Bike" in uml_content, "Expected 'Bike' class in UML content."
     assert "Car" in uml_content, "Expected 'Car' class in UML content."
 
-    assert "get_name" not in uml_content, "Expected 'get_name' method to be excluded."
-    assert "set_name" not in uml_content, "Expected 'set_name' method to be excluded."
+    assert "get_name" not in uml_content, "Expected 'get_name' method to be excluded_names."
+    assert "set_name" not in uml_content, "Expected 'set_name' method to be excluded_names."
 
     assert elapsed_time <= 5, f"Diagram generation took too long: {elapsed_time:.2f} seconds."
 

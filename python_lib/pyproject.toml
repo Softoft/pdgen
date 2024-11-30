@@ -19,8 +19,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = ">=3.12"
-plantuml = "*"
-requests = "*"
+requests = "*"  # For downloading the PlantUML diagrams
 
 [tool.poetry.group.testing.dependencies]
 pytest = "^8.3.3"
