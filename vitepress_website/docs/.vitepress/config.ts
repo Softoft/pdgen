@@ -9,9 +9,6 @@ export default {
     themeConfig: {
         nav: [
             {text: 'Home', link: '/'},
-            {text: 'Installation', link: '/installation'},
-            {text: 'Usage', link: '/usage'},
-            {text: 'Planned Features', link: '/planned-features'},
             {text: 'GitHub', link: 'https://github.com/softoft/pdgen'}
         ]
     }
