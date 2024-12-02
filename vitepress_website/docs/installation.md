@@ -47,4 +47,4 @@ If you encounter any issues during the installation, here are a few common probl
 ## Next Steps
 
 With `pdgen` installed, you're ready to start generating UML diagrams from your Python code. Head over to
-the [Usage](/guide/usage) page to learn how to use `pdgen` effectively.
+the [Usage](/usage) page to learn how to use `pdgen` effectively.

@@ -89,7 +89,6 @@ pdgen --config pdgen.config.json
 
 ### Next Steps
 
-Explore the [Advanced Features](/guide/advanced) to learn more about what `pdgen` can do for your project.
 :::warning
 This is a work in progress. These are just ideas for future versions!
 :::
@@ -171,5 +170,5 @@ pdgen --collaborate --server-url "http://yourserver.com"
 
 ## Next Steps
 
-After exploring the advanced features, you may want to revisit the [Configuration](/guide/configuration) page to further
+After exploring the advanced features, you may want to revisit the page to further
 customize `pdgen` according to your needs.
